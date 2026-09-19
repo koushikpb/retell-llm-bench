@@ -1,0 +1,31 @@
+# Serena per-project state
+.serena/
+# secrets
+.env
+.env.*
+!.env.example
+# deps and build output
+node_modules/
+dist/
+build/
+.next/
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+# tests and tooling
+test-results/
+playwright-report/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+coverage/
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+.next/
+dev.log
+dev.pid
+*.log
