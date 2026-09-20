@@ -5,13 +5,19 @@ An offline test bench for Retell custom-LLM servers: a CLI that plays the Retell
 Built by Koushik Karthikeyan as a skills demonstration for the Forward Deployed Engineer role (https://www.workatastartup.com/jobs/109576). Every line is owned and understood by the author.
 
 ## Commands
-- Install: TBD (planner fills in; expected `npm install`)
-- Test: TBD (expected `npm test`)
-- Run: TBD (expected `npm run bench` against the bundled reference server; `npm run bench -- --url ws://...` against any server)
-- Lint / typecheck: TBD (expected `npx tsc --noEmit`)
+- Install: `npm install`
+- Test: `npm test` (vitest, all files); one file: `npx vitest run tests/<name>.test.ts`; one test: `npx vitest run tests/<name>.test.ts -t "<name>"`
+- Typecheck: `npm run typecheck` (`tsc --noEmit`)
+- Reference server (port 3217, needs `ANTHROPIC_API_KEY` in `.env.local`): `npm run server` (or `npm run server -- --port 3219`)
+- Fake scripted server (port 3218, no key): `npm run fake`
+- Bench: `npm run bench` (defaults to `ws://127.0.0.1:3217/llm-websocket`); flags `--url <ws-url> --scenarios <dir> --runs <n> --json <file>`, e.g. `npm run bench -- --url ws://127.0.0.1:3218/llm-websocket --runs 3 --json out.json`
+- Smoke run (in-process fake, no key) → `docs/smoke.txt`: `npm run smoke`
+- Results run (needs `ANTHROPIC_API_KEY` in `.env.local`; starts the reference server in-process on a free port; 3 runs per scenario) → `docs/results.json`, `docs/results.md`: `npm run results`; re-render the markdown from the JSON: `npx tsx src/bench/results-md.ts docs/results.json docs/results.md`
+- Replay page for the GIF → `docs/replay.html`: `npm run replay`
+- Readiness wait (no `sleep`): `npx tsx scripts/wait-ws.ts ws://127.0.0.1:3217/llm-websocket/probe`
 
 ## Stack and versions
-- TypeScript on Node 22, `ws`, zod, YAML scenario files, vitest. Reference server: Anthropic SDK with streaming, two tools with `message` parameters, idempotent booking keyed on call ID + args. Exact versions come from the plan; update this line when they are pinned.
+- TypeScript 5.9.3 on Node 22.23.2 (ESM, `"type": "module"`, run with tsx 4.20.6, `module: nodenext`), ws 8.18.3 (+ @types/ws 8.18.1), zod 4.1.12, yaml 2.8.1, vitest 4.1.6, @types/node 22.18.6, @anthropic-ai/sdk 0.110.0 (reference server only: `messages.stream`, model `claude-sonnet-5`, `max_tokens: 300`, `thinking: { type: 'disabled' }`, no sampling parameters because Sonnet 5 rejects non-default ones). No diff library (hand-written `src/bench/diff.ts`). Exact pins, no `^`; Task 1 re-verifies each with `npm view` and records any substitution in TRACKER. Ports: reference 3217, fake 3218, tests 0.
 
 ## Layout
 - `src/bench/`: the Retell-side protocol driver (WebSocket client, message schemas, scenario runner, scoring, results table)
