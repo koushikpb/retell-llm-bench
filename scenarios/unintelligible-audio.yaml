@@ -1,0 +1,10 @@
+name: unintelligible-audio
+description: Retell transcribed no words (api-notes §4 sends "(unintelligible audio)"); the agent should ask the caller to repeat and call no tool.
+turns:
+  - user: "(unintelligible audio)"
+expect:
+  tool_calls: []
+  forbidden_tools: [book_appointment, end_call]
+  must_complete: true
+  agent_transcript:
+    - "Sorry, I did not catch that. Could you say it again?"

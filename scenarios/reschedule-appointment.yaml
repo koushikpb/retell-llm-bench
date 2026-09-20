@@ -1,0 +1,14 @@
+name: reschedule-appointment
+description: Two turns; the caller moves an existing appointment to a new slot.
+turns:
+  - user: "I have an appointment on September 22nd at 10am and I need to move it."
+  - user: "Can you do September 25th at 3pm?"
+expect:
+  tool_calls:
+    - name: book_appointment
+      args: { date: "2026-09-25", time: "15:00" }
+  forbidden_tools: [end_call]
+  must_complete: true
+  agent_transcript:
+    - "Sure, what day and time would you like instead?"
+    - "One moment while I move that. You are all set for September 25th at 3pm."

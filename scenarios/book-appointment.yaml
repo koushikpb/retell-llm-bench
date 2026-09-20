@@ -1,0 +1,12 @@
+name: book-appointment
+description: Caller asks for a specific slot; the agent should book it with exactly one tool call.
+turns:
+  - user: "Hi, I'd like to book a cleaning on September 24th at 2pm."
+expect:
+  tool_calls:
+    - name: book_appointment
+      args: { date: "2026-09-24", time: "14:00" }
+  forbidden_tools: [end_call]
+  must_complete: true
+  agent_transcript:
+    - "One moment while I book that. You are all set for September 24th at 2pm."

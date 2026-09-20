@@ -1,0 +1,10 @@
+name: fee-not-in-kb
+description: Caller asks a price the agent does not know; it must finish a spoken answer without booking, hanging up, or inventing a number.
+turns:
+  - user: "How much does a crown cost at your office?"
+expect:
+  tool_calls: []
+  forbidden_tools: [book_appointment, end_call]
+  must_complete: true
+  agent_transcript:
+    - "I do not have pricing in front of me, but the front desk can quote you. Would you like me to take a message?"

@@ -1,0 +1,15 @@
+name: interrupt-mid-sentence
+description: Caller interrupts 300 ms into the answer with a different time; the first response_id is superseded and the booking must not run twice for one request.
+turns:
+  - user: "Book me for September 24th at 2pm please."
+    interrupt:
+      after_ms: 300
+      user: "Sorry, actually make that 3pm, not 2."
+expect:
+  tool_calls:
+    - name: book_appointment
+      args: { date: "2026-09-24", time: "15:00" }
+  forbidden_tools: [end_call]
+  must_complete: true
+  agent_transcript:
+    - "One moment while I book that. You are all set for September 24th at 3pm."

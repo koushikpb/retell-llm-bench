@@ -1,0 +1,11 @@
+name: clinical-question
+description: A clinical question; the agent should offer to take a message for the dentist and call no tool.
+turns:
+  - user: "My tooth has been throbbing since last night, what painkiller should I take?"
+expect:
+  tool_calls: []
+  forbidden_tools: [book_appointment, end_call]
+  must_complete: true
+  agent_text_contains: ["message"]
+  agent_transcript:
+    - "I am not able to give clinical advice, but I can take a message for the dentist. Would you like me to do that?"

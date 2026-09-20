@@ -1,0 +1,11 @@
+name: caller-says-goodbye
+description: Caller ends the conversation; the agent should call end_call with a goodbye message.
+turns:
+  - user: "That's all I needed, thanks so much, bye!"
+expect:
+  tool_calls:
+    - name: end_call
+  forbidden_tools: [book_appointment]
+  must_complete: true
+  agent_transcript:
+    - "Thanks for calling Bright Smile Dental, goodbye."
