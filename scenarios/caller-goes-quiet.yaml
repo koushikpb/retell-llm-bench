@@ -1,0 +1,12 @@
+name: caller-goes-quiet
+description: After the first answer the caller says nothing; Retell sends reminder_required and the agent should nudge, not book.
+turns:
+  - user: "Hi, I was wondering about booking something."
+  - reminder: true
+expect:
+  tool_calls: []
+  forbidden_tools: [book_appointment, end_call]
+  must_complete: true
+  agent_transcript:
+    - "Of course, what day and time work for you?"
+    - "Are you still there? Let me know when you would like to come in."
