@@ -29,3 +29,5 @@ coverage/
 dev.log
 dev.pid
 *.log
+# task worktrees for parallel plan groups
+.worktrees/
