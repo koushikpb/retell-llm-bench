@@ -1,0 +1,31 @@
+{
+  "name": "retell-llm-bench",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Offline test bench for Retell custom-LLM WebSocket servers",
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "bench": "tsx src/bench/main.ts",
+    "server": "tsx src/server/main.ts",
+    "fake": "tsx src/server/fake-main.ts",
+    "smoke": "tsx scripts/smoke.ts",
+    "results": "tsx scripts/results.ts",
+    "replay": "tsx scripts/replay.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "0.110.0",
+    "ws": "8.18.3",
+    "yaml": "2.8.1",
+    "zod": "4.1.12"
+  },
+  "devDependencies": {
+    "@types/node": "22.18.6",
+    "@types/ws": "8.18.1",
+    "tsx": "4.20.6",
+    "typescript": "5.9.3",
+    "vitest": "4.1.6"
+  }
+}

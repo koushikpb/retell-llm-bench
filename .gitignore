@@ -31,3 +31,4 @@ dev.pid
 *.log
 # task worktrees for parallel plan groups
 .worktrees/
+*.pid
