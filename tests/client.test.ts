@@ -154,6 +154,19 @@ describe('BenchClient', () => {
     await c.close();
   });
 
+  it('flags and drops content sent after content_complete: true (api-notes §5)', async () => {
+    const srv = await boot(script({ byResponseId: { 1: reply({ chunks: [{ text: 'Done.', delayMs: 5 }], lateChunks: [{ text: 'late', delayMs: 20 }] }) } }));
+    const c = await BenchClient.connect({ url: srv.url, callId: 'call-k' });
+    await c.waitForBegin();
+    const turn = c.requestResponse('response_required', 1, []);
+    await c.waitForComplete(1, 1000);
+    await wait(60);
+    expect(c.violations.map((v) => v.code)).toEqual(['content_after_complete']);
+    expect(turn.chunks.map((ch) => ch.content)).toEqual(['Done.', '']);
+    expect(c.agentTextFor(1)).toBe('Done.');
+    await c.close();
+  });
+
   it('reports no begin message when the server never sends response_id 0', async () => {
     const srv = await boot(script({ begin: null }));
     const c = await BenchClient.connect({ url: srv.url, callId: 'call-j', beginTimeoutMs: 100 });

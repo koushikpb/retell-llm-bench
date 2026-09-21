@@ -106,7 +106,8 @@ export type ViolationCode =
   | 'binary_frame'
   | 'wrong_response_id'
   | 'config_not_first'
-  | 'orphan_tool_result';
+  | 'orphan_tool_result'
+  | 'content_after_complete';
 
 export interface Violation {
   code: ViolationCode;

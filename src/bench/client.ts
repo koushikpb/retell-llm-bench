@@ -231,6 +231,10 @@ export class BenchClient {
       this.violations.push({ code: 'wrong_response_id', message: `response for response_id ${frame.response_id}, which was never requested; Retell discards it silently (api-notes §5)`, raw, at });
       return;
     }
+    if (turn.completedAt !== null) {
+      this.violations.push({ code: 'content_after_complete', message: `response_id ${frame.response_id} sent content after content_complete: true; Retell ignores it (api-notes §5)`, raw, at });
+      return;
+    }
     turn.chunks.push({
       at,
       content: frame.content,

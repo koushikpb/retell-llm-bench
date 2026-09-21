@@ -73,6 +73,20 @@ describe('fake custom-LLM server', () => {
     await c.close();
   });
 
+  it('plays a late chunk after the completion frame (content sent after content_complete: true)', async () => {
+    const srv = await boot(script({ byResponseId: { 1: reply({ chunks: [{ text: 'Done.', delayMs: 5 }], lateChunks: [{ text: 'late', delayMs: 20 }] }) } }));
+    const c = await connectRaw(`${srv.url}/call-6`);
+    c.send({ interaction_type: 'response_required', response_id: 1, transcript: [] });
+    await c.waitFor((f) => f.response_id === 1 && f.content === 'late');
+    const mine = c.frames.filter((f) => f.response_type === 'response' && f.response_id === 1);
+    expect(mine.map((f) => [f.content, f.content_complete])).toEqual([
+      ['Done.', false],
+      ['', true],
+      ['late', false],
+    ]);
+    await c.close();
+  });
+
   it('echoes ping_pong with the same timestamp', async () => {
     const srv = await boot();
     const c = await connectRaw(`${srv.url}/call-5`);

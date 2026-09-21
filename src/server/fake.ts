@@ -10,6 +10,9 @@ export interface FakeReply {
   toolCalls: FakeToolCall[];
   rawFrames: unknown[];
   endCall: boolean;
+  // Chunks sent after the completion frame, to exercise a server that violates api-notes §5
+  // ("Retell accepts content only ... until you mark that response complete").
+  lateChunks: FakeChunk[];
 }
 export interface FakeMatcher { pattern: string; reply: FakeReply }
 export interface FakeScript {
@@ -24,7 +27,7 @@ export interface FakeScript {
 export interface FakeServer { port: number; url: string; received: unknown[]; close(): Promise<void> }
 
 export function reply(partial: Partial<FakeReply> = {}): FakeReply {
-  return { chunks: [], complete: true, completeDelayMs: 0, toolCalls: [], rawFrames: [], endCall: false, ...partial };
+  return { chunks: [], complete: true, completeDelayMs: 0, toolCalls: [], rawFrames: [], endCall: false, lateChunks: [], ...partial };
 }
 
 export function script(partial: Partial<FakeScript> = {}): FakeScript {
@@ -124,6 +127,10 @@ function handle(ws: WebSocket, s: FakeScript, received: unknown[]): void {
     if (r.complete) {
       at += r.completeDelayMs;
       later(at, () => send({ response_type: 'response', response_id: id, content: '', content_complete: true, ...(r.endCall ? { end_call: true } : {}) }));
+    }
+    for (const chunk of r.lateChunks) {
+      at += chunk.delayMs;
+      later(at, () => send({ response_type: 'response', response_id: id, content: chunk.text, content_complete: false }));
     }
   });
   ws.on('close', cancelPlayback);
