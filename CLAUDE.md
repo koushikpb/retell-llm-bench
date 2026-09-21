@@ -17,7 +17,7 @@ Built by Koushik Karthikeyan as a skills demonstration for the Forward Deployed 
 - Readiness wait (no `sleep`): `npx tsx scripts/wait-ws.ts ws://127.0.0.1:3217/llm-websocket/probe`
 
 ## Stack and versions
-- TypeScript 5.9.3 on Node 22.23.2 (ESM, `"type": "module"`, run with tsx 4.20.6, `module: nodenext`), ws 8.18.3 (+ @types/ws 8.18.1), zod 4.1.12, yaml 2.8.1, vitest 4.1.6, @types/node 22.18.6, @anthropic-ai/sdk 0.110.0 (reference server only: `messages.stream`, model `claude-sonnet-5`, `max_tokens: 300`, `thinking: { type: 'disabled' }`, no sampling parameters because Sonnet 5 rejects non-default ones). No diff library (hand-written `src/bench/diff.ts`). Exact pins, no `^`; Task 1 re-verifies each with `npm view` and records any substitution in TRACKER. Ports: reference 3217, fake 3218, tests 0.
+- TypeScript 5.9.3 on Node 22.23.2 (ESM, `"type": "module"`, run with tsx 4.20.6, `module: nodenext`), ws 8.21.3 (+ @types/ws 8.18.1), zod 4.1.12, yaml 2.8.4, vitest 4.1.11, @types/node 22.18.6, @anthropic-ai/sdk 0.110.0 (reference server only: `messages.stream`, model `claude-sonnet-5`, `max_tokens: 300`, `thinking: { type: 'disabled' }`, no sampling parameters because Sonnet 5 rejects non-default ones). No diff library (hand-written `src/bench/diff.ts`). Exact pins, no `^`; Task 1 re-verifies each with `npm view` and records any substitution in TRACKER. Ports: reference 3217, fake 3218, tests 0.
 
 ## Layout
 - `src/bench/`: the Retell-side protocol driver (WebSocket client, message schemas, scenario runner, scoring, results table)
