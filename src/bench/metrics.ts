@@ -15,7 +15,7 @@ export function firstSentenceMs(turn: TurnRecord): number | null {
 }
 
 export function ttfsSamples(result: ScenarioRunResult): number[] {
-  // Time to first sentence is defined from the response_required send (design spec line 18);
+  // Time to first sentence is defined from the response_required send (the spec's metrics definition);
   // reminder_required turns are excluded so their nudge latency doesn't land in ttfs p50/p90.
   return result.turns
     .filter((t) => !t.superseded && t.kind === 'response_required')

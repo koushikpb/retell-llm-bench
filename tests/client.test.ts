@@ -167,6 +167,17 @@ describe('BenchClient', () => {
     await c.close();
   });
 
+  it('flags config arriving after another frame but still acts on it', async () => {
+    const srv = await boot(script({ config: null, byResponseId: { 1: reply({ rawFrames: [{ response_type: 'config', config: {} }], chunks: [{ text: 'ok.', delayMs: 5 }] }) } }));
+    const c = await BenchClient.connect({ url: srv.url, callId: 'call-l' });
+    await c.waitForBegin();
+    c.requestResponse('response_required', 1, []);
+    await c.waitForComplete(1, 1000);
+    expect(c.violations.map((v) => v.code)).toEqual(['config_not_first']);
+    expect(c.config).toEqual({});
+    await c.close();
+  });
+
   it('reports no begin message when the server never sends response_id 0', async () => {
     const srv = await boot(script({ begin: null }));
     const c = await BenchClient.connect({ url: srv.url, callId: 'call-j', beginTimeoutMs: 100 });
