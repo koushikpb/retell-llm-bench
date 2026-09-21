@@ -88,8 +88,11 @@ export function handleConnection(ws: WebSocket, callId: string, deps: ServerDeps
       if (!isStale() && content.length > 0) send({ response_type: 'response', response_id: id, content, content_complete: false });
     };
     let endCall = false;
+    let pendingAfterCap = false;
+    let cappedToolName = '';
     const messages = buildMessages(transcript, kind);
     try {
+      // Reference-server limit: one tool call per turn, then at most one follow-up generation. Extra tool uses are logged and ignored (see README "What was left out").
       for (let round = 0; round < 2; round += 1) {
         const result = await deps.llm.generate({
           messages,
@@ -100,6 +103,7 @@ export function handleConnection(ws: WebSocket, callId: string, deps: ServerDeps
           },
         });
         const tool = result.toolUses[0];
+        if (result.toolUses.length > 1) deps.log(`${callId}: response ${id} returned ${result.toolUses.length} tool uses; only ${tool?.name ?? 'none'} runs (reference-server limit)`);
         if (!tool || isStale()) break;
         const message = typeof tool.input.message === 'string' ? tool.input.message : '';
         say(message.endsWith(' ') || message.length === 0 ? message : `${message} `);
@@ -108,12 +112,17 @@ export function handleConnection(ws: WebSocket, callId: string, deps: ServerDeps
           endCall = true;
           break;
         }
+        if (round === 1) {
+          pendingAfterCap = true;
+          cappedToolName = tool.name;
+        }
         messages.push({
           role: 'assistant',
           content: [...(result.text.length > 0 ? [{ type: 'text' as const, text: result.text }] : []), { type: 'tool_use', id: tool.id, name: tool.name, input: tool.input }],
         });
         messages.push({ role: 'user', content: [{ type: 'tool_result', tool_use_id: tool.id, content: outcome }] });
       }
+      if (pendingAfterCap) deps.log(`${callId}: response ${id} hit the tool-loop cap after ${cappedToolName}; no follow-up generation (reference-server limit)`);
     } catch (err) {
       if (!controller.signal.aborted) deps.log(`${callId}: response ${id} failed: ${(err as Error).message}`);
     } finally {

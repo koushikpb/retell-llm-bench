@@ -33,13 +33,13 @@ describe('reference session over the wire', () => {
   afterAll(async () => {
     for (const s of servers) await s.close();
   });
-  async function boot(steps: FakeLlmStep[], bookings = new BookingStore()) {
+  async function boot(steps: FakeLlmStep[], bookings = new BookingStore(), logs: string[] = []) {
     const llm = fakeLlm(steps);
-    const srv = await startReferenceServer({ port: 0, deps: { llm, bookings, log: () => {} } });
+    const srv = await startReferenceServer({ port: 0, deps: { llm, bookings, log: (l) => logs.push(l) } });
     servers.push(srv);
     const c = await connectRaw(`${srv.url}/call-x`);
     await c.waitFor((f) => f.response_id === 0);
-    return { c, llm, bookings };
+    return { c, llm, bookings, logs };
   }
 
   it('sends config first, then the begin message, and echoes ping_pong', async () => {
@@ -116,6 +116,27 @@ describe('reference session over the wire', () => {
     expect(done).toEqual({ response_type: 'response', response_id: 6, content: '', content_complete: true, end_call: true });
     expect(c.frames.find((f) => f.response_id === 6 && f.content === 'Goodbye! ')).toBeTruthy();
     expect(c.frames.find((f) => f.response_type === 'tool_call_invocation' && f.name === 'end_call')).toBeTruthy();
+    await c.close();
+  });
+
+  it('logs and ignores a second tool use in one turn (reference-server limit)', async () => {
+    const bookTool = { id: 't1', name: 'book_appointment', input: { date: '2026-09-24', time: '14:00', message: 'One moment while I book that.' } };
+    const endCallTool = { id: 't2', name: 'end_call', input: { message: 'Bye.' } };
+    const { c, logs } = await boot(
+      [
+        { textChunks: [], chunkDelayMs: 0, toolUses: [bookTool, endCallTool] },
+        { textChunks: ['Done.'], chunkDelayMs: 0, toolUses: [] },
+      ],
+      new BookingStore(),
+      [],
+    );
+    c.send(req(7, 'Book September 24th at 2pm and hang up.'));
+    const done = await c.waitFor((f) => f.response_id === 7 && f.content_complete === true);
+    const invocations = c.frames.filter((f) => f.response_type === 'tool_call_invocation');
+    expect(invocations).toHaveLength(1);
+    expect(invocations[0]).toMatchObject({ name: 'book_appointment' });
+    expect(done.end_call).toBeUndefined();
+    expect(logs.some((l) => l.includes('returned 2 tool uses'))).toBe(true);
     await c.close();
   });
 });
