@@ -1,0 +1,28 @@
+import { WebSocketServer } from 'ws';
+import { handleConnection, type ServerDeps } from './session.js';
+
+export interface ReferenceServer { port: number; url: string; close(): Promise<void> }
+
+// api-notes §2: Retell appends the call id as the last path segment; a trailing slash is normalized.
+export function callIdFromUrl(url: string | undefined): string {
+  const path = new URL(url ?? '/', 'ws://localhost').pathname;
+  return path.split('/').filter(Boolean).pop() ?? 'unknown-call';
+}
+
+export function startReferenceServer(opts: { port: number; deps: ServerDeps }): Promise<ReferenceServer> {
+  return new Promise((resolve) => {
+    const wss = new WebSocketServer({ port: opts.port });
+    wss.on('connection', (ws, req) => {
+      const callId = callIdFromUrl(req.url);
+      opts.deps.log(`${callId}: connected`);
+      ws.on('close', (code) => opts.deps.log(`${callId}: closed ${code}`));
+      handleConnection(ws, callId, opts.deps);
+    });
+    wss.on('listening', () => {
+      const address = wss.address();
+      if (address === null) throw new Error('server has no address after listening');
+      const port = typeof address === 'string' ? opts.port : address.port;
+      resolve({ port, url: `ws://127.0.0.1:${port}/llm-websocket`, close: () => new Promise((done) => wss.close(() => done())) });
+    });
+  });
+}
