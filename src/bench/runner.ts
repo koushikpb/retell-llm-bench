@@ -1,0 +1,93 @@
+import { randomBytes } from 'node:crypto';
+import type { Utterance } from '../protocol/schemas.js';
+import { BenchClient } from './client.js';
+import type { Scenario } from './scenario.js';
+import type { ScenarioRunResult } from './types.js';
+
+export interface RunOptions {
+  url: string;
+  run: number;
+  pingIntervalMs?: number;
+  pingTimeoutMs?: number;
+  beginTimeoutMs?: number;
+}
+
+const pause = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
+
+export async function runScenario(scenario: Scenario, opts: RunOptions): Promise<ScenarioRunResult> {
+  const callId = `bench-${scenario.name}-${opts.run}-${randomBytes(3).toString('hex')}`;
+  const client = await BenchClient.connect({
+    url: opts.url,
+    callId,
+    pingIntervalMs: opts.pingIntervalMs,
+    pingTimeoutMs: opts.pingTimeoutMs,
+    beginTimeoutMs: opts.beginTimeoutMs,
+  });
+  const transcript: Utterance[] = [];
+  const agentUtterances: string[] = [];
+  let nextId = 1;
+  try {
+    const begun = await client.waitForBegin();
+    if (begun && client.begin.content.length > 0) {
+      transcript.push({ role: 'agent', content: client.begin.content });
+      agentUtterances.push(client.begin.content);
+    }
+    for (const turn of scenario.turns) {
+      let completedId: number;
+      if ('reminder' in turn) {
+        const id = nextId++;
+        client.requestResponse('reminder_required', id, [...transcript]);
+        await client.waitForComplete(id, scenario.turn_timeout_ms);
+        completedId = id;
+      } else {
+        transcript.push({ role: 'user', content: turn.user });
+        client.sendUpdateOnly([...transcript], 'user_turn');
+        const id = nextId++;
+        // api-notes §4: turntaking "agent_turn" is sent "right before agent is about to speak".
+        client.sendUpdateOnly([...transcript], 'agent_turn');
+        client.requestResponse('response_required', id, [...transcript]);
+        if (turn.interrupt) {
+          await pause(turn.interrupt.after_ms);
+          // Whatever the agent already streamed under the superseded id was spoken, so it stays in the transcript.
+          const partial = client.agentTextFor(id);
+          if (partial.length > 0) {
+            transcript.push({ role: 'agent', content: partial });
+            agentUtterances.push(partial);
+          }
+          transcript.push({ role: 'user', content: turn.interrupt.user });
+          client.sendUpdateOnly([...transcript], 'user_turn');
+          const id2 = nextId++;
+          client.sendUpdateOnly([...transcript], 'agent_turn');
+          client.requestResponse('response_required', id2, [...transcript]);
+          await client.waitForComplete(id2, scenario.turn_timeout_ms);
+          completedId = id2;
+        } else {
+          await client.waitForComplete(id, scenario.turn_timeout_ms);
+          completedId = id;
+        }
+      }
+      const said = client.agentTextFor(completedId);
+      if (said.length > 0) {
+        transcript.push({ role: 'agent', content: said });
+        agentUtterances.push(said);
+        client.sendUpdateOnly([...transcript]);
+      }
+    }
+  } finally {
+    await client.close();
+  }
+  return {
+    scenario: scenario.name,
+    run: opts.run,
+    callId,
+    url: opts.url,
+    config: client.config,
+    begin: client.begin,
+    turns: client.turns,
+    toolCalls: client.toolCalls,
+    violations: client.violations,
+    keepalive: client.keepalive,
+    agentUtterances,
+    durationMs: performance.now() - client.startedAt,
+  };
+}
