@@ -8,7 +8,7 @@ export const SMOKE_SCRIPT: FakeScript = script({
     {
       pattern: '\\b(2|3|10)\\s?(pm|am)\\b|september',
       reply: reply({
-        chunks: [{ text: 'Sure, ', delayMs: 150 }, { text: 'let me get that booked. ', delayMs: 60 }, { text: 'You are all set.', delayMs: 200 }],
+        chunks: [{ text: 'Sure, ', delayMs: 150 }, { text: 'let me get that booked. ', delayMs: 60 }, { text: 'You are all set.', delayMs: 400 }],
         toolCalls: [{ name: 'book_appointment', arguments: { date: '2026-09-24', time: '14:00' }, result: 'Booked 2026-09-24 14:00', afterChunk: 2 }],
       }),
     },
