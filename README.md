@@ -14,7 +14,7 @@ npm run smoke      # no key: runs the suite against a scripted fake server (star
 npm run results    # with ANTHROPIC_API_KEY in .env.local (see .env.example): starts the Claude reference server in-process, 3 runs per scenario, writes docs/results.md
 ```
 
-All three run in one terminal. To point the bench at your own server: start it (or `npm run server` for the bundled Claude one on `ws://127.0.0.1:3217/llm-websocket`, or `npm run fake` for the scripted one on port 3218) and in a second terminal run `npm run bench -- --url ws://127.0.0.1:8080/llm-websocket --runs 3 --json out.json`.
+All three run in one terminal. To point the bench at your own server: start it (or `npm run server` for the bundled Claude one on `ws://127.0.0.1:3217/llm-websocket`, or `npm run fake` for the scripted one on port 3218) and in a second terminal run `npm run bench -- --url ws://127.0.0.1:8080/llm-websocket --runs 3 --json out.json`. Both bundled servers listen on 127.0.0.1 only.
 
 ## What the bench does
 

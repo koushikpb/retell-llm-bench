@@ -87,6 +87,12 @@ describe('fake custom-LLM server', () => {
     await c.close();
   });
 
+  it('rejects instead of hanging when the port is already in use (security M1)', async () => {
+    const srv = await startFakeServer({ port: 0, script: script() });
+    await expect(startFakeServer({ port: srv.port, script: script() })).rejects.toThrow();
+    await srv.close();
+  });
+
   it('echoes ping_pong with the same timestamp', async () => {
     const srv = await boot();
     const c = await connectRaw(`${srv.url}/call-5`);

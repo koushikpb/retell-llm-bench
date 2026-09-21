@@ -16,14 +16,15 @@ export function callIdFromUrl(url: string | undefined): string {
 }
 
 export function startReferenceServer(opts: { port: number; deps: ServerDeps }): Promise<ReferenceServer> {
-  return new Promise((resolve) => {
-    const wss = new WebSocketServer({ port: opts.port });
+  return new Promise((resolve, reject) => {
+    const wss = new WebSocketServer({ port: opts.port, host: '127.0.0.1' });
     wss.on('connection', (ws, req) => {
       const callId = callIdFromUrl(req.url);
       opts.deps.log(`${callId}: connected`);
       ws.on('close', (code) => opts.deps.log(`${callId}: closed ${code}`));
       handleConnection(ws, callId, opts.deps);
     });
+    wss.on('error', reject);
     wss.on('listening', () => {
       const address = wss.address();
       if (address === null) throw new Error('server has no address after listening');

@@ -52,10 +52,11 @@ function pickReply(s: FakeScript, id: number, transcript: Utterance[]): FakeRepl
 }
 
 export function startFakeServer(opts: { port: number; script: FakeScript }): Promise<FakeServer> {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     const received: unknown[] = [];
-    const wss = new WebSocketServer({ port: opts.port });
+    const wss = new WebSocketServer({ port: opts.port, host: '127.0.0.1' });
     wss.on('connection', (ws) => handle(ws, opts.script, received));
+    wss.on('error', reject);
     wss.on('listening', () => {
       const address = wss.address();
       if (address === null) throw new Error('server has no address after listening');
