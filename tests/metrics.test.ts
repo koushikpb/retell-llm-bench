@@ -44,4 +44,13 @@ describe('ttfsSamples and percentile', () => {
     expect(percentile([42], 90)).toBe(42);
     expect(percentile([], 50)).toBeNull();
   });
+  it('excludes reminder_required turns', () => {
+    const result = {
+      turns: [
+        turn(1, [[100, 'Hi.', true]]),
+        turn(2, [[80, 'Are you still there?', true]], { kind: 'reminder_required' }),
+      ],
+    } as ScenarioRunResult;
+    expect(ttfsSamples(result)).toEqual([100]);
+  });
 });
