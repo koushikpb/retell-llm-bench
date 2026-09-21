@@ -26,6 +26,10 @@ describe('callIdFromUrl', () => {
     expect(callIdFromUrl('/llm-websocket/call_abc/')).toBe('call_abc');
     expect(callIdFromUrl(undefined)).toBe('unknown-call');
   });
+
+  it('returns unknown-call instead of throwing on an unparsable request path (security H1)', () => {
+    expect(callIdFromUrl('//')).toBe('unknown-call');
+  });
 });
 
 describe('reference session over the wire', () => {

@@ -5,7 +5,13 @@ export interface ReferenceServer { port: number; url: string; close(): Promise<v
 
 // api-notes §2: Retell appends the call id as the last path segment; a trailing slash is normalized.
 export function callIdFromUrl(url: string | undefined): string {
-  const path = new URL(url ?? '/', 'ws://localhost').pathname;
+  let path: string;
+  try {
+    path = new URL(url ?? '/', 'ws://localhost').pathname;
+  } catch {
+    // Security H1: an unparsable request path (e.g. "//") must not crash the server.
+    return 'unknown-call';
+  }
   return path.split('/').filter(Boolean).pop() ?? 'unknown-call';
 }
 
