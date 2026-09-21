@@ -109,4 +109,29 @@ describe('runScenario', () => {
     const s = scoreRun(silentScenario, r);
     expect(s.findings.map((f) => f.code)).toEqual(['silent_tool_turn']);
   });
+
+  it('times an interrupt from the agent\'s first chunk (after_first_chunk_ms)', async () => {
+    const fcScenario = ScenarioSchema.parse({
+      name: 'interrupt-fc-test',
+      description: 'inline',
+      turn_timeout_ms: 1000,
+      turns: [{ user: 'x', interrupt: { after_first_chunk_ms: 50, user: 'y' } }],
+      expect: {},
+    });
+    const fc = script({
+      byResponseId: {
+        1: reply({ chunks: [{ text: 'a. ', delayMs: 100 }, { text: 'b. ', delayMs: 100 }, { text: 'c.', delayMs: 100 }] }),
+        2: reply({ chunks: [{ text: 'Sure thing.', delayMs: 10 }] }),
+      },
+    });
+    const srv = await startFakeServer({ port: 0, script: fc });
+    servers.push(srv);
+    const r = await runScenario(fcScenario, { url: srv.url, run: 1 });
+    expect(r.turns[0]).toMatchObject({ superseded: true, supersededBy: 2 });
+    expect(r.turns[0].chunks.some((c) => c.content.length > 0)).toBe(true);
+    const firstIdx = r.agentUtterances.indexOf('a.');
+    expect(firstIdx).toBeGreaterThan(-1);
+    const secondIdx = r.agentUtterances.findIndex((u) => u.includes('Sure thing.'));
+    expect(secondIdx).toBeGreaterThan(firstIdx);
+  });
 });

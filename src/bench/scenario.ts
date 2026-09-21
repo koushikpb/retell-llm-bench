@@ -7,7 +7,9 @@ const ExpectedToolCallSchema = z.object({
   name: z.string(),
   args: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])).default({}),
 });
-const InterruptSchema = z.object({ after_ms: z.int().min(0), user: z.string() });
+const InterruptSchema = z
+  .object({ after_ms: z.int().min(0).optional(), after_first_chunk_ms: z.int().min(0).optional(), user: z.string() })
+  .refine((i) => i.after_ms !== undefined || i.after_first_chunk_ms !== undefined, { message: 'interrupt needs after_ms or after_first_chunk_ms' });
 const UserTurnSchema = z.object({ user: z.string(), interrupt: InterruptSchema.optional() });
 const ReminderTurnSchema = z.object({ reminder: z.literal(true) });
 const TurnSchema = z.union([UserTurnSchema, ReminderTurnSchema]);

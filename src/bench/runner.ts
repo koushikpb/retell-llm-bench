@@ -51,7 +51,15 @@ export async function runScenario(scenario: Scenario, opts: RunOptions): Promise
       } else {
         const id = sendUserTurn(turn.user);
         if (turn.interrupt) {
-          await pause(turn.interrupt.after_ms);
+          const { after_ms, after_first_chunk_ms } = turn.interrupt;
+          if (after_first_chunk_ms !== undefined) {
+            const gotChunk = await client.waitForFirstChunk(id, scenario.turn_timeout_ms);
+            if (gotChunk) await pause(after_first_chunk_ms);
+            else if (after_ms !== undefined) await pause(after_ms);
+            // else: the agent never spoke a word; interrupt immediately.
+          } else {
+            await pause(after_ms as number);
+          }
           // Whatever the agent already streamed under the superseded id was spoken, so it stays in the transcript.
           const partial = client.agentTextFor(id);
           if (partial.length > 0) {

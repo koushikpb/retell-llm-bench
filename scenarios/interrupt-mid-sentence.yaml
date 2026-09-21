@@ -1,9 +1,9 @@
 name: interrupt-mid-sentence
-description: Caller interrupts 300 ms into the answer with a different time; the first response_id is superseded and the booking must not run twice for one request.
+description: Caller interrupts 300 ms after the agent starts speaking with a different time; the first response_id is superseded and the booking must not run twice for one request.
 turns:
   - user: "Book me for September 24th at 2pm please."
     interrupt:
-      after_ms: 300
+      after_first_chunk_ms: 300
       user: "Sorry, actually make that 3pm, not 2."
 expect:
   tool_calls:

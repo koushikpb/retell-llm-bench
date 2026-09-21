@@ -27,6 +27,15 @@ describe('scenario schema', () => {
     expect(ScenarioSchema.safeParse({ name: 'ok', description: 'd', turns: [], expect: {} }).success).toBe(false);
     expect(ScenarioSchema.safeParse({ name: 'ok', description: 'd', turns: [{ agent: 'a' }], expect: {} }).success).toBe(false);
   });
+
+  it('accepts an interrupt timed from the first chunk, and rejects an interrupt with neither field', () => {
+    expect(
+      ScenarioSchema.safeParse({ name: 'z', description: 'd', turns: [{ user: 'a', interrupt: { after_first_chunk_ms: 100, user: 'x' } }], expect: {} }).success,
+    ).toBe(true);
+    expect(
+      ScenarioSchema.safeParse({ name: 'z', description: 'd', turns: [{ user: 'a', interrupt: { user: 'x' } }], expect: {} }).success,
+    ).toBe(false);
+  });
 });
 
 describe('loaders', () => {

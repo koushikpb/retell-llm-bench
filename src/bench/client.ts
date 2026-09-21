@@ -86,6 +86,12 @@ export class BenchClient {
     return turn;
   }
 
+  waitForFirstChunk(responseId: number, timeoutMs: number): Promise<boolean> {
+    const turn = this.turns.find((t) => t.responseId === responseId);
+    if (!turn) throw new Error(`response_id ${responseId} was never requested`);
+    return this.wait(() => turn.chunks.some((c) => c.content.length > 0), timeoutMs);
+  }
+
   agentTextFor(responseId: number): string {
     const turn = this.turns.find((t) => t.responseId === responseId);
     return turn ? turn.chunks.map((c) => c.content).join('').trim() : '';
