@@ -139,4 +139,18 @@ describe('reference session over the wire', () => {
     expect(logs.some((l) => l.includes('returned 2 tool uses'))).toBe(true);
     await c.close();
   });
+
+  it('separates streamed text from the tool message with a space when the text has no trailing whitespace', async () => {
+    const bookTool = { id: 't1', name: 'book_appointment', input: { date: '2026-09-24', time: '14:00', message: 'One moment while I book that.' } };
+    const { c } = await boot([
+      { textChunks: ['I will book that.'], chunkDelayMs: 0, toolUses: [bookTool] },
+      { textChunks: ['You are all set.'], chunkDelayMs: 0, toolUses: [] },
+    ]);
+    c.send(req(8, 'Book September 24th at 2pm.'));
+    await c.waitFor((f) => f.response_id === 8 && f.content_complete === true);
+    const mine = c.frames.filter((f) => f.response_type === 'response' && f.response_id === 8);
+    const content = mine.map((f) => f.content).join('');
+    expect(content).toBe('I will book that. One moment while I book that. You are all set.');
+    await c.close();
+  });
 });

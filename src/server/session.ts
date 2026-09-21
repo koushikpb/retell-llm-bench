@@ -106,7 +106,11 @@ export function handleConnection(ws: WebSocket, callId: string, deps: ServerDeps
         if (result.toolUses.length > 1) deps.log(`${callId}: response ${id} returned ${result.toolUses.length} tool uses; only ${tool?.name ?? 'none'} runs (reference-server limit)`);
         if (!tool || isStale()) break;
         const message = typeof tool.input.message === 'string' ? tool.input.message : '';
-        say(message.endsWith(' ') || message.length === 0 ? message : `${message} `);
+        const spoken = message.endsWith(' ') || message.length === 0 ? message : `${message} `;
+        // Separate the streamed text from the tool's spoken message: without this, non-whitespace-terminated
+        // text runs straight into the message ("...for you now.One moment...").
+        const needsSeparator = result.text.length > 0 && !/\s$/.test(result.text) && spoken.length > 0;
+        say(needsSeparator ? ` ${spoken}` : spoken);
         const outcome = runTool(tool);
         if (tool.name === 'end_call') {
           endCall = true;
