@@ -1,0 +1,4774 @@
+{
+  "generatedAt": "2026-09-21T02:25:06.794Z",
+  "url": "ws://127.0.0.1:49564/llm-websocket",
+  "runsPerScenario": 3,
+  "scenarios": [
+    {
+      "scenario": "book-appointment",
+      "runs": 3,
+      "ttfsP50": 1559.0784170000002,
+      "ttfsP90": 2333.3913749999997,
+      "completeReceived": 3,
+      "completeRequested": 3,
+      "toolMissing": 0,
+      "toolUnnecessary": 0,
+      "toolDuplicate": 0,
+      "violations": 0,
+      "textMissing": 0,
+      "mustCompleteOk": true,
+      "findings": [],
+      "transcriptDiffs": [
+        {
+          "run": 1,
+          "diff": "--- expected\n+++ actual\n-One moment while I book that. You are all set for September 24th at 2pm.\n+One moment while I book your cleaning for September 24th at 2pm. You're all set for a cleaning on September 24th at 2pm, confirmation number BSD-0001. Is there anything else I can help with?"
+        },
+        {
+          "run": 2,
+          "diff": "--- expected\n+++ actual\n-One moment while I book that. You are all set for September 24th at 2pm.\n+I'll book that cleaning for you now.One moment while I book your cleaning for September 24th at 2pm. You're all set for a cleaning on Thursday, September 24th at 2pm, confirmation number BSD-0002. Anything else I can help with?"
+        },
+        {
+          "run": 3,
+          "diff": "--- expected\n+++ actual\n-One moment while I book that. You are all set for September 24th at 2pm.\n+September 24th, 2026 is a Thursday, so that works well.One moment while I book your cleaning appointment. You're all set for a cleaning on Thursday, September 24th at 2pm, confirmation number BSD-0003. Anything else I can help with?"
+        }
+      ]
+    },
+    {
+      "scenario": "caller-goes-quiet",
+      "runs": 3,
+      "ttfsP50": 1376.4897499999988,
+      "ttfsP90": 1394.0644589999993,
+      "completeReceived": 6,
+      "completeRequested": 6,
+      "toolMissing": 0,
+      "toolUnnecessary": 0,
+      "toolDuplicate": 0,
+      "violations": 0,
+      "textMissing": 0,
+      "mustCompleteOk": true,
+      "findings": [],
+      "transcriptDiffs": [
+        {
+          "run": 1,
+          "diff": "--- expected\n+++ actual\n-Of course, what day and time work for you?\n-Are you still there? Let me know when you would like to come in.\n+Sure, I'd be happy to help. What day and time works best for you, and what type of appointment are you looking to book?\n+Still there? Whenever you're ready, just let me know what day and time you'd like to come in."
+        },
+        {
+          "run": 2,
+          "diff": "--- expected\n+++ actual\n-Of course, what day and time work for you?\n-Are you still there? Let me know when you would like to come in.\n+Sure, I can help with that. What day and time would you like to come in?\n+Take your time — whenever you're ready, just let me know what day and time works best for you."
+        },
+        {
+          "run": 3,
+          "diff": "--- expected\n+++ actual\n-Of course, what day and time work for you?\n-Are you still there? Let me know when you would like to come in.\n+Sure, I'd be happy to help with that. What day and time work best for you, and is there a particular type of appointment you need?\n+Are you still there? Just let me know what day and time you'd like to come in."
+        }
+      ]
+    },
+    {
+      "scenario": "caller-says-goodbye",
+      "runs": 3,
+      "ttfsP50": 1330.6913330000025,
+      "ttfsP90": 1565.9558749999997,
+      "completeReceived": 3,
+      "completeRequested": 3,
+      "toolMissing": 0,
+      "toolUnnecessary": 0,
+      "toolDuplicate": 0,
+      "violations": 0,
+      "textMissing": 0,
+      "mustCompleteOk": true,
+      "findings": [],
+      "transcriptDiffs": [
+        {
+          "run": 1,
+          "diff": "--- expected\n+++ actual\n-Thanks for calling Bright Smile Dental, goodbye.\n+You're welcome, goodbye!"
+        },
+        {
+          "run": 2,
+          "diff": "--- expected\n+++ actual\n-Thanks for calling Bright Smile Dental, goodbye.\n+It seems I don't have any prior context of us discussing an appointment, but if that's all you needed, have a great day!Have a great day, goodbye!"
+        },
+        {
+          "run": 3,
+          "diff": "--- expected\n+++ actual\n-Thanks for calling Bright Smile Dental, goodbye.\n+It seems like we haven't actually scheduled or discussed anything yet, but if you're all set, I'll say goodbye!You're welcome, have a great day, goodbye!"
+        }
+      ]
+    },
+    {
+      "scenario": "change-mind-before-booking",
+      "runs": 3,
+      "ttfsP50": 1227.804082999999,
+      "ttfsP90": 1319.0204159999994,
+      "completeReceived": 3,
+      "completeRequested": 3,
+      "toolMissing": 0,
+      "toolUnnecessary": 0,
+      "toolDuplicate": 0,
+      "violations": 0,
+      "textMissing": 0,
+      "mustCompleteOk": true,
+      "findings": [],
+      "transcriptDiffs": [
+        {
+          "run": 1,
+          "diff": "--- expected\n+++ actual\n-No problem, I will hold off. Call back whenever you are ready.\n+No problem, I won't book anything yet. Just call back whenever you're ready, or let me know if you'd like to check another time now."
+        },
+        {
+          "run": 2,
+          "diff": "--- expected\n+++ actual\n-No problem, I will hold off. Call back whenever you are ready.\n+Sounds good, no problem. Just give me a call back whenever you and your wife have decided on a time."
+        },
+        {
+          "run": 3,
+          "diff": "--- expected\n+++ actual\n-No problem, I will hold off. Call back whenever you are ready.\n+No problem, take your time. Just call back or let me know when you're ready to book, and I'll be happy to help."
+        }
+      ]
+    },
+    {
+      "scenario": "clinical-question",
+      "runs": 3,
+      "ttfsP50": 1375.1069160000006,
+      "ttfsP90": 1650.6368340000008,
+      "completeReceived": 3,
+      "completeRequested": 3,
+      "toolMissing": 0,
+      "toolUnnecessary": 0,
+      "toolDuplicate": 0,
+      "violations": 0,
+      "textMissing": 0,
+      "mustCompleteOk": true,
+      "findings": [],
+      "transcriptDiffs": [
+        {
+          "run": 1,
+          "diff": "--- expected\n+++ actual\n-I am not able to give clinical advice, but I can take a message for the dentist. Would you like me to do that?\n+I'm sorry you're dealing with that, but I'm not able to give medical or medication advice. I can take a message for the dentist to call you back, or I can get you in for an appointment as soon as possible — which would you prefer?"
+        },
+        {
+          "run": 2,
+          "diff": "--- expected\n+++ actual\n-I am not able to give clinical advice, but I can take a message for the dentist. Would you like me to do that?\n+I'm sorry you're dealing with that, but I'm not able to give medical or medication advice. I can take a message for the dentist to call you back, or find you the soonest available appointment — would either of those help?"
+        },
+        {
+          "run": 3,
+          "diff": "--- expected\n+++ actual\n-I am not able to give clinical advice, but I can take a message for the dentist. Would you like me to do that?\n+I'm sorry to hear that, but I'm not able to give medical advice like which painkiller to take. I can take a message for the dentist to call you back, or I can get you in for an appointment as soon as possible. Would you like me to do either of those?"
+        }
+      ]
+    },
+    {
+      "scenario": "fee-not-in-kb",
+      "runs": 3,
+      "ttfsP50": 1454.7412920000024,
+      "ttfsP90": 1674.8799169999984,
+      "completeReceived": 3,
+      "completeRequested": 3,
+      "toolMissing": 0,
+      "toolUnnecessary": 0,
+      "toolDuplicate": 0,
+      "violations": 0,
+      "textMissing": 0,
+      "mustCompleteOk": true,
+      "findings": [],
+      "transcriptDiffs": [
+        {
+          "run": 1,
+          "diff": "--- expected\n+++ actual\n-I do not have pricing in front of me, but the front desk can quote you. Would you like me to take a message?\n+I'm sorry, I don't have pricing information for crowns. I'd be happy to take a message for the dentist or front desk to get you an exact quote — would that work?"
+        },
+        {
+          "run": 2,
+          "diff": "--- expected\n+++ actual\n-I do not have pricing in front of me, but the front desk can quote you. Would you like me to take a message?\n+I'm sorry, I don't have pricing details for crowns on hand. I can take a message for the front desk to call you back with that information, or help you schedule an appointment. Which would you prefer?"
+        },
+        {
+          "run": 3,
+          "diff": "--- expected\n+++ actual\n-I do not have pricing in front of me, but the front desk can quote you. Would you like me to take a message?\n+I'm sorry, I don't have pricing information for crowns. I can take a message for the front desk to call you back with that detail, or help you book an appointment. Which would you like?"
+        }
+      ]
+    },
+    {
+      "scenario": "interrupt-mid-sentence",
+      "runs": 3,
+      "ttfsP50": 1653.5079170000026,
+      "ttfsP90": 1939.283958999993,
+      "completeReceived": 3,
+      "completeRequested": 3,
+      "toolMissing": 0,
+      "toolUnnecessary": 0,
+      "toolDuplicate": 0,
+      "violations": 0,
+      "textMissing": 0,
+      "mustCompleteOk": true,
+      "findings": [],
+      "transcriptDiffs": [
+        {
+          "run": 1,
+          "diff": "--- expected\n+++ actual\n-One moment while I book that. You are all set for September 24th at 3pm.\n+One moment while I book your 3pm appointment on September 24th. You're all set for 3pm on September 24th, confirmation number BSD-0004. Anything else I can help with?"
+        },
+        {
+          "run": 2,
+          "diff": "--- expected\n+++ actual\n-One moment while I book that. You are all set for September 24th at 3pm.\n+I'll get you booked for September 24th at 3pm.One moment while I book your 3pm appointment on September 24th. You're all set for Thursday, September 24th at 3pm, confirmation BSD-0005. Anything else I can help with?"
+        },
+        {
+          "run": 3,
+          "diff": "--- expected\n+++ actual\n-One moment while I book that. You are all set for September 24th at 3pm.\n+One moment while I book your appointment for September 24th at 3pm. You're all set for Thursday, September 24th at 3pm, confirmation number BSD-0006. Anything else I can help with?"
+        }
+      ]
+    },
+    {
+      "scenario": "reschedule-appointment",
+      "runs": 3,
+      "ttfsP50": 967.9099579999965,
+      "ttfsP90": 1720.797040999998,
+      "completeReceived": 6,
+      "completeRequested": 6,
+      "toolMissing": 2,
+      "toolUnnecessary": 0,
+      "toolDuplicate": 0,
+      "violations": 0,
+      "textMissing": 0,
+      "mustCompleteOk": true,
+      "findings": [
+        {
+          "code": "tool_missing",
+          "message": "run 1: expected book_appointment {\"date\":\"2026-09-25\",\"time\":\"15:00\"} was never invoked",
+          "responseId": null
+        },
+        {
+          "code": "tool_missing",
+          "message": "run 3: expected book_appointment {\"date\":\"2026-09-25\",\"time\":\"15:00\"} was never invoked",
+          "responseId": null
+        }
+      ],
+      "transcriptDiffs": [
+        {
+          "run": 1,
+          "diff": "--- expected\n+++ actual\n-Sure, what day and time would you like instead?\n-One moment while I move that. You are all set for September 25th at 3pm.\n+What date and time would you like to move it to?\n+September 25th is a Friday, so that works within office hours. Should I go ahead and move your appointment to September 25th at 3pm?"
+        },
+        {
+          "run": 2,
+          "diff": "--- expected\n+++ actual\n-Sure, what day and time would you like instead?\n-One moment while I move that. You are all set for September 25th at 3pm.\n+I can help with that. What new date and time would you like for your appointment?\n+One moment while I move your appointment to September 25th at 3pm. You're all set, your appointment is now on September 25th at 3pm. Is there anything else I can help with?"
+        },
+        {
+          "run": 3,
+          "diff": "--- expected\n+++ actual\n-Sure, what day and time would you like instead?\n-One moment while I move that. You are all set for September 25th at 3pm.\n+What day and time would you like to move it to?\n+September 25th is a Friday, so that time works fine for our office hours. Shall I go ahead and move your appointment to 3pm on September 25th?"
+        }
+      ]
+    },
+    {
+      "scenario": "unintelligible-audio",
+      "runs": 3,
+      "ttfsP50": 1438.3242909999972,
+      "ttfsP90": 1445.3464590000003,
+      "completeReceived": 3,
+      "completeRequested": 3,
+      "toolMissing": 0,
+      "toolUnnecessary": 0,
+      "toolDuplicate": 0,
+      "violations": 0,
+      "textMissing": 0,
+      "mustCompleteOk": true,
+      "findings": [],
+      "transcriptDiffs": [
+        {
+          "run": 1,
+          "diff": "--- expected\n+++ actual\n-Sorry, I did not catch that. Could you say it again?\n+I'm sorry, I didn't quite catch that — could you repeat what you'd like to do, like booking, moving, or canceling an appointment?"
+        },
+        {
+          "run": 2,
+          "diff": "--- expected\n+++ actual\n-Sorry, I did not catch that. Could you say it again?\n+I'm sorry, I didn't catch that. Could you tell me if you'd like to book, move, or cancel an appointment?"
+        },
+        {
+          "run": 3,
+          "diff": "--- expected\n+++ actual\n-Sorry, I did not catch that. Could you say it again?\n+I'm sorry, I didn't catch that. Could you please repeat what you'd like to do—book, move, or cancel an appointment?"
+        }
+      ]
+    }
+  ],
+  "raw": [
+    {
+      "scenario": "book-appointment",
+      "run": 1,
+      "callId": "bench-book-appointment-1-e0cb4a",
+      "url": "ws://127.0.0.1:49564/llm-websocket",
+      "config": {
+        "auto_reconnect": true,
+        "call_details": true
+      },
+      "begin": {
+        "received": true,
+        "content": "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "ms": 3.7644169999999804
+      },
+      "turns": [
+        {
+          "responseId": 1,
+          "kind": "response_required",
+          "requestedAt": 293.735916,
+          "chunks": [
+            {
+              "at": 2627.127291,
+              "content": "One moment while I book your cleaning for September 24th at 2pm. ",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 3417.868041,
+              "content": "You",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 3730.435375,
+              "content": "'re all set for",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 3735.051541,
+              "content": " a",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 3735.304208,
+              "content": " cleaning on September 24",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 3738.964666,
+              "content": "th at 2pm,",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 3739.018875,
+              "content": " confirmation number BSD",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 3739.045541,
+              "content": "-0001. Is there an",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 3759.083708,
+              "content": "ything else I can help with?",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 3808.018791,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 3808.018791,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        }
+      ],
+      "toolCalls": [
+        {
+          "tool_call_id": "bench-book-appointment-1-e0cb4a-1",
+          "name": "book_appointment",
+          "arguments": "{\"date\":\"2026-09-24\",\"time\":\"14:00\"}",
+          "parsedArguments": {
+            "date": "2026-09-24",
+            "time": "14:00"
+          },
+          "at": 2627.579291,
+          "responseId": 1,
+          "result": {
+            "content": "Booked 2026-09-24 14:00, confirmation BSD-0001.",
+            "successful": true,
+            "at": 2628.050791
+          }
+        }
+      ],
+      "violations": [],
+      "keepalive": {
+        "enabled": true,
+        "sent": 1,
+        "echoed": 1,
+        "missed": 0
+      },
+      "agentUtterances": [
+        "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "One moment while I book your cleaning for September 24th at 2pm. You're all set for a cleaning on September 24th at 2pm, confirmation number BSD-0001. Is there anything else I can help with?"
+      ],
+      "durationMs": 3522.405417
+    },
+    {
+      "scenario": "book-appointment",
+      "run": 2,
+      "callId": "bench-book-appointment-2-56ce5c",
+      "url": "ws://127.0.0.1:49564/llm-websocket",
+      "config": {
+        "auto_reconnect": true,
+        "call_details": true
+      },
+      "begin": {
+        "received": true,
+        "content": "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "ms": 2.12112500000012
+      },
+      "turns": [
+        {
+          "responseId": 1,
+          "kind": "response_required",
+          "requestedAt": 3815.743416,
+          "chunks": [
+            {
+              "at": 4860.002208,
+              "content": "\nI'll",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 5372.181458,
+              "content": " book that c",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 5374.821833,
+              "content": "leaning for you now.",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 5701.641791,
+              "content": "One moment while I book your cleaning for September 24th at 2pm. ",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 6510.753166,
+              "content": "You",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 6874.539791,
+              "content": "'re all set for",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 6878.407625,
+              "content": " a",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 6878.424625,
+              "content": " cleaning on Th",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 6878.432041,
+              "content": "ursday, September 24th at",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 6878.438125,
+              "content": " 2pm,",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 6878.447458,
+              "content": " confirmation number BSD",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 6878.453541,
+              "content": "-0002. An",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 6904.075708,
+              "content": "ything else I can help with?",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 6946.688125,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 6946.688125,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        }
+      ],
+      "toolCalls": [
+        {
+          "tool_call_id": "bench-book-appointment-2-56ce5c-1",
+          "name": "book_appointment",
+          "arguments": "{\"date\":\"2026-09-24\",\"time\":\"14:00\"}",
+          "parsedArguments": {
+            "date": "2026-09-24",
+            "time": "14:00"
+          },
+          "at": 5701.818166,
+          "responseId": 1,
+          "result": {
+            "content": "Booked 2026-09-24 14:00, confirmation BSD-0002.",
+            "successful": true,
+            "at": 5701.932833
+          }
+        }
+      ],
+      "violations": [],
+      "keepalive": {
+        "enabled": true,
+        "sent": 1,
+        "echoed": 1,
+        "missed": 0
+      },
+      "agentUtterances": [
+        "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "I'll book that cleaning for you now.One moment while I book your cleaning for September 24th at 2pm. You're all set for a cleaning on Thursday, September 24th at 2pm, confirmation number BSD-0002. Anything else I can help with?"
+      ],
+      "durationMs": 3134.211833
+    },
+    {
+      "scenario": "book-appointment",
+      "run": 3,
+      "callId": "bench-book-appointment-3-e1567e",
+      "url": "ws://127.0.0.1:49564/llm-websocket",
+      "config": {
+        "auto_reconnect": true,
+        "call_details": true
+      },
+      "begin": {
+        "received": true,
+        "content": "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "ms": 1.499749999999949
+      },
+      "turns": [
+        {
+          "responseId": 1,
+          "kind": "response_required",
+          "requestedAt": 6950.445916,
+          "chunks": [
+            {
+              "at": 7795.909,
+              "content": "September",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 8315.892333,
+              "content": " 24th, 2026",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 8319.18425,
+              "content": " is a Thursday,",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 8319.2225,
+              "content": " so",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 8319.243625,
+              "content": " that works well.",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 8798.389666,
+              "content": "One moment while I book your cleaning appointment. ",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 9848.68025,
+              "content": "You",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 10093.046458,
+              "content": "'re all set for",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 10097.884916,
+              "content": " a",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 10098.059166,
+              "content": " cleaning on Thurs",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 10098.218125,
+              "content": "day, September 24th at ",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 10098.243041,
+              "content": "2pm, confirmation",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 10099.181791,
+              "content": " number BSD-0003.",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 10099.2235,
+              "content": " An",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 10106.86275,
+              "content": "ything else I can help with?",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 10149.830125,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 10149.830125,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        }
+      ],
+      "toolCalls": [
+        {
+          "tool_call_id": "bench-book-appointment-3-e1567e-1",
+          "name": "book_appointment",
+          "arguments": "{\"date\":\"2026-09-24\",\"time\":\"14:00\"}",
+          "parsedArguments": {
+            "date": "2026-09-24",
+            "time": "14:00"
+          },
+          "at": 8798.466,
+          "responseId": 1,
+          "result": {
+            "content": "Booked 2026-09-24 14:00, confirmation BSD-0003.",
+            "successful": true,
+            "at": 8798.49975
+          }
+        }
+      ],
+      "violations": [],
+      "keepalive": {
+        "enabled": true,
+        "sent": 1,
+        "echoed": 1,
+        "missed": 0
+      },
+      "agentUtterances": [
+        "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "September 24th, 2026 is a Thursday, so that works well.One moment while I book your cleaning appointment. You're all set for a cleaning on Thursday, September 24th at 2pm, confirmation number BSD-0003. Anything else I can help with?"
+      ],
+      "durationMs": 3204.556375000001
+    },
+    {
+      "scenario": "caller-goes-quiet",
+      "run": 1,
+      "callId": "bench-caller-goes-quiet-1-69862a",
+      "url": "ws://127.0.0.1:49564/llm-websocket",
+      "config": {
+        "auto_reconnect": true,
+        "call_details": true
+      },
+      "begin": {
+        "received": true,
+        "content": "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "ms": 2.565082999999504
+      },
+      "turns": [
+        {
+          "responseId": 1,
+          "kind": "response_required",
+          "requestedAt": 10161.159208,
+          "chunks": [
+            {
+              "at": 11004.731833,
+              "content": "S",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 11422.240625,
+              "content": "ure,",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 11422.451208,
+              "content": " I'd be happy to help",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 11422.494041,
+              "content": ".",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 11422.528916,
+              "content": " What day",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 11422.56175,
+              "content": " and",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 11422.599125,
+              "content": " time works best for you,",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 11422.63225,
+              "content": " and what type",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 11422.6635,
+              "content": " of appointment are you looking",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 11423.25425,
+              "content": " to book?",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 11425.183541,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 11425.183541,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        },
+        {
+          "responseId": 2,
+          "kind": "reminder_required",
+          "requestedAt": 11425.4625,
+          "chunks": [
+            {
+              "at": 12466.5475,
+              "content": "Still there",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 12650.804041,
+              "content": "?",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 12662.525958,
+              "content": " Wh",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 12662.642375,
+              "content": "enever you're ready, just",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 12662.682833,
+              "content": " let me know what day",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 12662.715125,
+              "content": " and time you'd like to come",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 12704.246875,
+              "content": " in.",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 12711.287708,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 12711.287708,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        }
+      ],
+      "toolCalls": [],
+      "violations": [],
+      "keepalive": {
+        "enabled": true,
+        "sent": 1,
+        "echoed": 1,
+        "missed": 0
+      },
+      "agentUtterances": [
+        "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "Sure, I'd be happy to help. What day and time works best for you, and what type of appointment are you looking to book?",
+        "Still there? Whenever you're ready, just let me know what day and time you'd like to come in."
+      ],
+      "durationMs": 2555.264916
+    },
+    {
+      "scenario": "caller-goes-quiet",
+      "run": 2,
+      "callId": "bench-caller-goes-quiet-2-af7b1e",
+      "url": "ws://127.0.0.1:49564/llm-websocket",
+      "config": {
+        "auto_reconnect": true,
+        "call_details": true
+      },
+      "begin": {
+        "received": true,
+        "content": "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "ms": 3.2465420000007725
+      },
+      "turns": [
+        {
+          "responseId": 1,
+          "kind": "response_required",
+          "requestedAt": 12718.636791,
+          "chunks": [
+            {
+              "at": 13712.796583,
+              "content": "S",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 14112.70125,
+              "content": "ure, I can help with that.",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 14112.894625,
+              "content": " What day",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 14112.936125,
+              "content": " and time would you like to come",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 14112.969625,
+              "content": " in?",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 14115.186958,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 14115.186958,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        },
+        {
+          "responseId": 2,
+          "kind": "reminder_required",
+          "requestedAt": 14115.486166,
+          "chunks": [
+            {
+              "at": 15226.969208,
+              "content": "Take",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 15467.405708,
+              "content": " your time —",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 15467.518666,
+              "content": " wh",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 15467.541208,
+              "content": "enever you're ready, just",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 15467.566,
+              "content": " let me know what day and time works",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 15467.58125,
+              "content": " best",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 15485.8095,
+              "content": " for you.",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 15494.602166,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 15494.602166,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        }
+      ],
+      "toolCalls": [],
+      "violations": [],
+      "keepalive": {
+        "enabled": true,
+        "sent": 1,
+        "echoed": 1,
+        "missed": 0
+      },
+      "agentUtterances": [
+        "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "Sure, I can help with that. What day and time would you like to come in?",
+        "Take your time — whenever you're ready, just let me know what day and time works best for you."
+      ],
+      "durationMs": 2782.699417
+    },
+    {
+      "scenario": "caller-goes-quiet",
+      "run": 3,
+      "callId": "bench-caller-goes-quiet-3-404986",
+      "url": "ws://127.0.0.1:49564/llm-websocket",
+      "config": {
+        "auto_reconnect": true,
+        "call_details": true
+      },
+      "begin": {
+        "received": true,
+        "content": "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "ms": 2.558499999999185
+      },
+      "turns": [
+        {
+          "responseId": 1,
+          "kind": "response_required",
+          "requestedAt": 15502.224666,
+          "chunks": [
+            {
+              "at": 16413.115625,
+              "content": "S",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 16819.228916,
+              "content": "ure, I'",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 16860.471291,
+              "content": "d be happy to help with",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 16860.630375,
+              "content": " that. What day",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 16864.595416,
+              "content": " and time work",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 16864.675583,
+              "content": " best for you, and is",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 16867.725,
+              "content": " there a",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 16872.253708,
+              "content": " particular type of appointment you",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 16878.714416,
+              "content": " need?",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 16886.003875,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 16886.003875,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        },
+        {
+          "responseId": 2,
+          "kind": "reminder_required",
+          "requestedAt": 16886.716875,
+          "chunks": [
+            {
+              "at": 17749.070333,
+              "content": "Are",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 18003.334916,
+              "content": " you still there? Just let",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 18003.457083,
+              "content": " me know what day",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 18003.475083,
+              "content": " and time you'd like to come",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 18003.489708,
+              "content": " in.",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 18004.346875,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 18004.346875,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        }
+      ],
+      "toolCalls": [],
+      "violations": [],
+      "keepalive": {
+        "enabled": true,
+        "sent": 1,
+        "echoed": 1,
+        "missed": 0
+      },
+      "agentUtterances": [
+        "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "Sure, I'd be happy to help with that. What day and time work best for you, and is there a particular type of appointment you need?",
+        "Are you still there? Just let me know what day and time you'd like to come in."
+      ],
+      "durationMs": 2506.4728749999995
+    },
+    {
+      "scenario": "caller-says-goodbye",
+      "run": 1,
+      "callId": "bench-caller-says-goodbye-1-d1cfef",
+      "url": "ws://127.0.0.1:49564/llm-websocket",
+      "config": {
+        "auto_reconnect": true,
+        "call_details": true
+      },
+      "begin": {
+        "received": true,
+        "content": "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "ms": 1.8153330000022834
+      },
+      "turns": [
+        {
+          "responseId": 1,
+          "kind": "response_required",
+          "requestedAt": 18009.867625,
+          "chunks": [
+            {
+              "at": 19284.132458,
+              "content": "You're welcome, goodbye! ",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 19284.549916,
+              "content": "",
+              "content_complete": true,
+              "end_call": true,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 19284.549916,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        }
+      ],
+      "toolCalls": [
+        {
+          "tool_call_id": "bench-caller-says-goodbye-1-d1cfef-1",
+          "name": "end_call",
+          "arguments": "{}",
+          "parsedArguments": {},
+          "at": 19284.371166,
+          "responseId": 1,
+          "result": {
+            "content": "Call will end after this message.",
+            "successful": true,
+            "at": 19284.493583
+          }
+        }
+      ],
+      "violations": [],
+      "keepalive": {
+        "enabled": true,
+        "sent": 0,
+        "echoed": 0,
+        "missed": 0
+      },
+      "agentUtterances": [
+        "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "You're welcome, goodbye!"
+      ],
+      "durationMs": 1278.9950830000016
+    },
+    {
+      "scenario": "caller-says-goodbye",
+      "run": 2,
+      "callId": "bench-caller-says-goodbye-2-483899",
+      "url": "ws://127.0.0.1:49564/llm-websocket",
+      "config": {
+        "auto_reconnect": true,
+        "call_details": true
+      },
+      "begin": {
+        "received": true,
+        "content": "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "ms": 2.0396659999969415
+      },
+      "turns": [
+        {
+          "responseId": 1,
+          "kind": "response_required",
+          "requestedAt": 19291.3225,
+          "chunks": [
+            {
+              "at": 20094.787333,
+              "content": "It",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 20600.61775,
+              "content": " se",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 20620.673083,
+              "content": "ems I don",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 20620.779125,
+              "content": "'t have any",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 20620.817875,
+              "content": " prior context of",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 20620.850166,
+              "content": " us",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 20621.839,
+              "content": " discussing an",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 20621.887375,
+              "content": " appointment,",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 20621.922458,
+              "content": " but if",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 20621.953833,
+              "content": " that's all",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 20621.984125,
+              "content": " you needed, have",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 20622.013833,
+              "content": " a great day!",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 20987.708541,
+              "content": "Have a great day, goodbye! ",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 20988.0685,
+              "content": "",
+              "content_complete": true,
+              "end_call": true,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 20988.0685,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        }
+      ],
+      "toolCalls": [
+        {
+          "tool_call_id": "bench-caller-says-goodbye-2-483899-1",
+          "name": "end_call",
+          "arguments": "{}",
+          "parsedArguments": {},
+          "at": 20987.918166,
+          "responseId": 1,
+          "result": {
+            "content": "Call will end after this message.",
+            "successful": true,
+            "at": 20988.002791
+          }
+        }
+      ],
+      "violations": [],
+      "keepalive": {
+        "enabled": true,
+        "sent": 0,
+        "echoed": 0,
+        "missed": 0
+      },
+      "agentUtterances": [
+        "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "It seems I don't have any prior context of us discussing an appointment, but if that's all you needed, have a great day!Have a great day, goodbye!"
+      ],
+      "durationMs": 1701.0622079999994
+    },
+    {
+      "scenario": "caller-says-goodbye",
+      "run": 3,
+      "callId": "bench-caller-says-goodbye-3-728bee",
+      "url": "ws://127.0.0.1:49564/llm-websocket",
+      "config": {
+        "auto_reconnect": true,
+        "call_details": true
+      },
+      "begin": {
+        "received": true,
+        "content": "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "ms": 3.85858300000109
+      },
+      "turns": [
+        {
+          "responseId": 1,
+          "kind": "response_required",
+          "requestedAt": 20997.090958,
+          "chunks": [
+            {
+              "at": 21998.995708,
+              "content": "It",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 22495.908541,
+              "content": " se",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 22505.535458,
+              "content": "ems like we",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 22505.634208,
+              "content": " ha",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 22505.674666,
+              "content": "ven't actually sc",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 22505.709166,
+              "content": "heduled or",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 22505.746041,
+              "content": " disc",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 22505.777416,
+              "content": "ussed anything yet,",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 22505.807416,
+              "content": " but if",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 22505.83725,
+              "content": " you're all",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 22505.867375,
+              "content": " set, I",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 22516.163041,
+              "content": "'ll say",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 22563.046833,
+              "content": " goodbye!",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 23024.052541,
+              "content": "You're welcome, have a great day, goodbye! ",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 23024.390375,
+              "content": "",
+              "content_complete": true,
+              "end_call": true,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 23024.390375,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        }
+      ],
+      "toolCalls": [
+        {
+          "tool_call_id": "bench-caller-says-goodbye-3-728bee-1",
+          "name": "end_call",
+          "arguments": "{}",
+          "parsedArguments": {},
+          "at": 23024.251083,
+          "responseId": 1,
+          "result": {
+            "content": "Call will end after this message.",
+            "successful": true,
+            "at": 23024.327541
+          }
+        }
+      ],
+      "violations": [],
+      "keepalive": {
+        "enabled": true,
+        "sent": 1,
+        "echoed": 1,
+        "missed": 0
+      },
+      "agentUtterances": [
+        "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "It seems like we haven't actually scheduled or discussed anything yet, but if you're all set, I'll say goodbye!You're welcome, have a great day, goodbye!"
+      ],
+      "durationMs": 2033.370583
+    },
+    {
+      "scenario": "change-mind-before-booking",
+      "run": 1,
+      "callId": "bench-change-mind-before-booking-1-e49f08",
+      "url": "ws://127.0.0.1:49564/llm-websocket",
+      "config": {
+        "auto_reconnect": true,
+        "call_details": true
+      },
+      "begin": {
+        "received": true,
+        "content": "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "ms": 2.278042000001733
+      },
+      "turns": [
+        {
+          "responseId": 1,
+          "kind": "response_required",
+          "requestedAt": 23031.213291,
+          "chunks": [
+            {
+              "at": 23252.537166,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 23252.537166,
+          "superseded": true,
+          "supersededAt": 23233.2995,
+          "supersededBy": 2,
+          "timedOut": false
+        },
+        {
+          "responseId": 2,
+          "kind": "response_required",
+          "requestedAt": 23233.2995,
+          "chunks": [
+            {
+              "at": 24124.493375,
+              "content": "No",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 24528.874625,
+              "content": " problem, I won",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 24529.088291,
+              "content": "'t book anything y",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 24529.13075,
+              "content": "et. Just call",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 24529.165625,
+              "content": " back whenever you're ready",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 24529.835875,
+              "content": ",",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 24529.8845,
+              "content": " or let",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 24529.918291,
+              "content": " me know if you'd like to",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 24529.948916,
+              "content": " check another time now",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 24552.319916,
+              "content": ".",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 24553.603125,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 24553.603125,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        }
+      ],
+      "toolCalls": [],
+      "violations": [],
+      "keepalive": {
+        "enabled": true,
+        "sent": 0,
+        "echoed": 0,
+        "missed": 0
+      },
+      "agentUtterances": [
+        "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "No problem, I won't book anything yet. Just call back whenever you're ready, or let me know if you'd like to check another time now."
+      ],
+      "durationMs": 1527.0654590000013
+    },
+    {
+      "scenario": "change-mind-before-booking",
+      "run": 2,
+      "callId": "bench-change-mind-before-booking-2-bc56f2",
+      "url": "ws://127.0.0.1:49564/llm-websocket",
+      "config": {
+        "auto_reconnect": true,
+        "call_details": true
+      },
+      "begin": {
+        "received": true,
+        "content": "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "ms": 1.8513339999990421
+      },
+      "turns": [
+        {
+          "responseId": 1,
+          "kind": "response_required",
+          "requestedAt": 24559.38025,
+          "chunks": [
+            {
+              "at": 24762.932041,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 24762.932041,
+          "superseded": true,
+          "supersededAt": 24760.579583,
+          "supersededBy": 2,
+          "timedOut": false
+        },
+        {
+          "responseId": 2,
+          "kind": "response_required",
+          "requestedAt": 24760.579583,
+          "chunks": [
+            {
+              "at": 25667.3205,
+              "content": "S",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 25895.361791,
+              "content": "ounds good, no problem.",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 25900.526958,
+              "content": " Just give",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 25900.556458,
+              "content": " me a call back",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 25900.570166,
+              "content": " whenever you and",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 25900.582416,
+              "content": " your wife have dec",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 25927.767666,
+              "content": "ided on a time.",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 25932.882125,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 25932.882125,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        }
+      ],
+      "toolCalls": [],
+      "violations": [],
+      "keepalive": {
+        "enabled": true,
+        "sent": 0,
+        "echoed": 0,
+        "missed": 0
+      },
+      "agentUtterances": [
+        "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "Sounds good, no problem. Just give me a call back whenever you and your wife have decided on a time."
+      ],
+      "durationMs": 1376.451291999998
+    },
+    {
+      "scenario": "change-mind-before-booking",
+      "run": 3,
+      "callId": "bench-change-mind-before-booking-3-9f0926",
+      "url": "ws://127.0.0.1:49564/llm-websocket",
+      "config": {
+        "auto_reconnect": true,
+        "call_details": true
+      },
+      "begin": {
+        "received": true,
+        "content": "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "ms": 1.1583749999990687
+      },
+      "turns": [
+        {
+          "responseId": 1,
+          "kind": "response_required",
+          "requestedAt": 25935.489583,
+          "chunks": [
+            {
+              "at": 26139.919291,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 26139.919291,
+          "superseded": true,
+          "supersededAt": 26136.188458,
+          "supersededBy": 2,
+          "timedOut": false
+        },
+        {
+          "responseId": 2,
+          "kind": "response_required",
+          "requestedAt": 26136.188458,
+          "chunks": [
+            {
+              "at": 26984.486916,
+              "content": "No",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 27347.386666,
+              "content": " problem,",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 27350.8725,
+              "content": " take your time. Just",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 27350.946208,
+              "content": " call",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 27350.98975,
+              "content": " back or",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 27351.573583,
+              "content": " let",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 27351.62175,
+              "content": " me know when you're ready to",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 27351.657708,
+              "content": " book, and I'll be",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 27363.992541,
+              "content": " happy to help.",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 27379.638958,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 27379.638958,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        }
+      ],
+      "toolCalls": [],
+      "violations": [],
+      "keepalive": {
+        "enabled": true,
+        "sent": 0,
+        "echoed": 0,
+        "missed": 0
+      },
+      "agentUtterances": [
+        "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "No problem, take your time. Just call back or let me know when you're ready to book, and I'll be happy to help."
+      ],
+      "durationMs": 1447.542040999997
+    },
+    {
+      "scenario": "clinical-question",
+      "run": 1,
+      "callId": "bench-clinical-question-1-179a40",
+      "url": "ws://127.0.0.1:49564/llm-websocket",
+      "config": {
+        "auto_reconnect": true,
+        "call_details": true
+      },
+      "begin": {
+        "received": true,
+        "content": "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "ms": 2.178250000000844
+      },
+      "turns": [
+        {
+          "responseId": 1,
+          "kind": "response_required",
+          "requestedAt": 27385.85625,
+          "chunks": [
+            {
+              "at": 28203.141125,
+              "content": "I",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 28721.452375,
+              "content": "'m sorry you",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 28721.667875,
+              "content": "'re d",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 28721.711583,
+              "content": "ealing with that",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 28722.819208,
+              "content": ",",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 28722.876291,
+              "content": " but I'm not able to give",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 28722.91525,
+              "content": " medical or",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 28722.950375,
+              "content": " med",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 28722.981166,
+              "content": "ication advice.",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 28723.011291,
+              "content": " I can",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 28723.040958,
+              "content": " take",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 28723.078875,
+              "content": " a message for the dentist to",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 28737.366708,
+              "content": " call",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 28954.421,
+              "content": " you back, or I",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 28954.635958,
+              "content": " can get you in",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 28954.676333,
+              "content": " for an app",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 28954.710166,
+              "content": "ointment as soon as possible",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 28969.328875,
+              "content": " — which",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 29008.650083,
+              "content": " would you prefer?",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 29020.760916,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 29020.760916,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        }
+      ],
+      "toolCalls": [],
+      "violations": [],
+      "keepalive": {
+        "enabled": true,
+        "sent": 0,
+        "echoed": 0,
+        "missed": 0
+      },
+      "agentUtterances": [
+        "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "I'm sorry you're dealing with that, but I'm not able to give medical or medication advice. I can take a message for the dentist to call you back, or I can get you in for an appointment as soon as possible — which would you prefer?"
+      ],
+      "durationMs": 1639.6326249999984
+    },
+    {
+      "scenario": "clinical-question",
+      "run": 2,
+      "callId": "bench-clinical-question-2-69ebcc",
+      "url": "ws://127.0.0.1:49564/llm-websocket",
+      "config": {
+        "auto_reconnect": true,
+        "call_details": true
+      },
+      "begin": {
+        "received": true,
+        "content": "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "ms": 2.320041000002675
+      },
+      "turns": [
+        {
+          "responseId": 1,
+          "kind": "response_required",
+          "requestedAt": 29026.709625,
+          "chunks": [
+            {
+              "at": 29879.253458,
+              "content": "I",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 30396.301541,
+              "content": "'m sorry you",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 30401.612625,
+              "content": "'re d",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 30401.719583,
+              "content": "ealing with that, but I'",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 30401.74925,
+              "content": "m not able to give",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 30401.772833,
+              "content": " medical or",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 30401.794333,
+              "content": " med",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 30401.816541,
+              "content": "ication advice.",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 30401.856291,
+              "content": " I can",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 30401.878,
+              "content": " take",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 30401.900125,
+              "content": " a message for the dentist to",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 30409.572958,
+              "content": " call",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 30447.654541,
+              "content": " you",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 30907.3955,
+              "content": " back, or find",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 30907.584875,
+              "content": " you",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 30907.629083,
+              "content": " the",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 30907.666291,
+              "content": " so",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 30907.698625,
+              "content": "onest available",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 30907.731208,
+              "content": " appointment —",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 30907.770833,
+              "content": " would",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 30907.800791,
+              "content": " either of",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 30907.830166,
+              "content": " those help",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 30908.389291,
+              "content": "?",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 30909.601833,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 30909.601833,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        }
+      ],
+      "toolCalls": [],
+      "violations": [],
+      "keepalive": {
+        "enabled": true,
+        "sent": 0,
+        "echoed": 0,
+        "missed": 0
+      },
+      "agentUtterances": [
+        "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "I'm sorry you're dealing with that, but I'm not able to give medical or medication advice. I can take a message for the dentist to call you back, or find you the soonest available appointment — would either of those help?"
+      ],
+      "durationMs": 1887.6069160000006
+    },
+    {
+      "scenario": "clinical-question",
+      "run": 3,
+      "callId": "bench-clinical-question-3-b3350b",
+      "url": "ws://127.0.0.1:49564/llm-websocket",
+      "config": {
+        "auto_reconnect": true,
+        "call_details": true
+      },
+      "begin": {
+        "received": true,
+        "content": "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "ms": 1.8357499999983702
+      },
+      "turns": [
+        {
+          "responseId": 1,
+          "kind": "response_required",
+          "requestedAt": 30914.682541,
+          "chunks": [
+            {
+              "at": 31933.007583,
+              "content": "I",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 32395.880458,
+              "content": "'m sorry to hear",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 32396.404625,
+              "content": " that",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 32396.445416,
+              "content": ", but I'm not able to",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 32399.713416,
+              "content": " give medical advice like",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 32399.773875,
+              "content": " which",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 32399.827875,
+              "content": " painkiller to take. I",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 32399.847,
+              "content": " can",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 32399.878833,
+              "content": " take",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 32400.610958,
+              "content": " a message for the dentist to",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 32400.665541,
+              "content": " call",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 32400.916333,
+              "content": " you back, or I can get you",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 32401.365666,
+              "content": " in",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 32515.199333,
+              "content": " for an app",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 32515.395583,
+              "content": "ointment as soon as possible",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 32515.451375,
+              "content": ". Would you",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 32559.405125,
+              "content": " like me to do either of",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 32565.319375,
+              "content": " those?",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 32582.824916,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 32582.824916,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        }
+      ],
+      "toolCalls": [],
+      "violations": [],
+      "keepalive": {
+        "enabled": true,
+        "sent": 0,
+        "echoed": 0,
+        "missed": 0
+      },
+      "agentUtterances": [
+        "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "I'm sorry to hear that, but I'm not able to give medical advice like which painkiller to take. I can take a message for the dentist to call you back, or I can get you in for an appointment as soon as possible. Would you like me to do either of those?"
+      ],
+      "durationMs": 1674.0043329999971
+    },
+    {
+      "scenario": "fee-not-in-kb",
+      "run": 1,
+      "callId": "bench-fee-not-in-kb-1-1940c6",
+      "url": "ws://127.0.0.1:49564/llm-websocket",
+      "config": {
+        "auto_reconnect": true,
+        "call_details": true
+      },
+      "begin": {
+        "received": true,
+        "content": "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "ms": 1.9233340000027965
+      },
+      "turns": [
+        {
+          "responseId": 1,
+          "kind": "response_required",
+          "requestedAt": 32590.423541,
+          "chunks": [
+            {
+              "at": 33475.648625,
+              "content": "I",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 34044.85675,
+              "content": "'",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 34045.057458,
+              "content": "m s",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 34045.099083,
+              "content": "orry, I",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 34045.133125,
+              "content": " don't have p",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 34045.164833,
+              "content": "ricing information for crowns.",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 34045.201041,
+              "content": " I'd be happy to take",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 34045.23175,
+              "content": " a message for the dentist or",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 34045.2615,
+              "content": " front",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 34045.987041,
+              "content": " desk to get",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 34046.046958,
+              "content": " you",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 34046.08275,
+              "content": " an",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 34046.414083,
+              "content": " ex",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 34142.310583,
+              "content": "act qu",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 34142.483375,
+              "content": "ote —",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 34160.539458,
+              "content": " would that work",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 34193.439,
+              "content": "?",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 34203.912791,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 34203.912791,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        }
+      ],
+      "toolCalls": [],
+      "violations": [],
+      "keepalive": {
+        "enabled": true,
+        "sent": 0,
+        "echoed": 0,
+        "missed": 0
+      },
+      "agentUtterances": [
+        "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "I'm sorry, I don't have pricing information for crowns. I'd be happy to take a message for the dentist or front desk to get you an exact quote — would that work?"
+      ],
+      "durationMs": 1618.0011670000022
+    },
+    {
+      "scenario": "fee-not-in-kb",
+      "run": 2,
+      "callId": "bench-fee-not-in-kb-2-ad0c5e",
+      "url": "ws://127.0.0.1:49564/llm-websocket",
+      "config": {
+        "auto_reconnect": true,
+        "call_details": true
+      },
+      "begin": {
+        "received": true,
+        "content": "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "ms": 2.305584000001545
+      },
+      "turns": [
+        {
+          "responseId": 1,
+          "kind": "response_required",
+          "requestedAt": 34209.915208,
+          "chunks": [
+            {
+              "at": 35098.244833,
+              "content": "I",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 35617.752833,
+              "content": "'",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 35617.951458,
+              "content": "m s",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 35617.99325,
+              "content": "orry, I",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 35618.027291,
+              "content": " don't have p",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 35618.076416,
+              "content": "ricing details for cr",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 35619.020375,
+              "content": "owns on",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 35619.074333,
+              "content": " hand. I can",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 35619.109458,
+              "content": " take",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 35619.140875,
+              "content": " a message for the front desk to",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 35619.186333,
+              "content": " call",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 35622.122291,
+              "content": " you back with that",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 35667.703541,
+              "content": " information",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 35875.85475,
+              "content": ", or help",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 35875.91175,
+              "content": " you schedule an appointment",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 35875.926416,
+              "content": ". Which",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 35875.937625,
+              "content": " would you pr",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 35884.795125,
+              "content": "efer?",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 35895.356458,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 35895.356458,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        }
+      ],
+      "toolCalls": [],
+      "violations": [],
+      "keepalive": {
+        "enabled": true,
+        "sent": 0,
+        "echoed": 0,
+        "missed": 0
+      },
+      "agentUtterances": [
+        "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "I'm sorry, I don't have pricing details for crowns on hand. I can take a message for the front desk to call you back with that information, or help you schedule an appointment. Which would you prefer?"
+      ],
+      "durationMs": 1688.5734589999993
+    },
+    {
+      "scenario": "fee-not-in-kb",
+      "run": 3,
+      "callId": "bench-fee-not-in-kb-3-05972f",
+      "url": "ws://127.0.0.1:49564/llm-websocket",
+      "config": {
+        "auto_reconnect": true,
+        "call_details": true
+      },
+      "begin": {
+        "received": true,
+        "content": "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "ms": 0.9923329999946873
+      },
+      "turns": [
+        {
+          "responseId": 1,
+          "kind": "response_required",
+          "requestedAt": 35897.424375,
+          "chunks": [
+            {
+              "at": 36777.109416,
+              "content": "I",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 37291.889666,
+              "content": "'m s",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 37309.670541,
+              "content": "orry, I",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 37309.814708,
+              "content": " don't have p",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 37309.861291,
+              "content": "ricing information for crowns.",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 37309.913916,
+              "content": " I can",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 37309.949791,
+              "content": " take",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 37309.983333,
+              "content": " a message for the front desk to",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 37310.015083,
+              "content": " call",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 37310.04725,
+              "content": " you back with that det",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 37310.090541,
+              "content": "ail, or help",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 37310.126208,
+              "content": " you book",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 37327.73625,
+              "content": " an appointment. Which",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 37363.929958,
+              "content": " would you like?",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 37370.974208,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 37370.974208,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        }
+      ],
+      "toolCalls": [],
+      "violations": [],
+      "keepalive": {
+        "enabled": true,
+        "sent": 0,
+        "echoed": 0,
+        "missed": 0
+      },
+      "agentUtterances": [
+        "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "I'm sorry, I don't have pricing information for crowns. I can take a message for the front desk to call you back with that detail, or help you book an appointment. Which would you like?"
+      ],
+      "durationMs": 1476.7883329999968
+    },
+    {
+      "scenario": "interrupt-mid-sentence",
+      "run": 1,
+      "callId": "bench-interrupt-mid-sentence-1-bf8a5e",
+      "url": "ws://127.0.0.1:49564/llm-websocket",
+      "config": {
+        "auto_reconnect": true,
+        "call_details": true
+      },
+      "begin": {
+        "received": true,
+        "content": "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "ms": 1.7328749999942374
+      },
+      "turns": [
+        {
+          "responseId": 1,
+          "kind": "response_required",
+          "requestedAt": 37376.456916,
+          "chunks": [
+            {
+              "at": 37688.401583,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 37688.401583,
+          "superseded": true,
+          "supersededAt": 37678.046541,
+          "supersededBy": 2,
+          "timedOut": false
+        },
+        {
+          "responseId": 2,
+          "kind": "response_required",
+          "requestedAt": 37678.046541,
+          "chunks": [
+            {
+              "at": 39617.3305,
+              "content": "One moment while I book your 3pm appointment on September 24th. ",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 40383.532125,
+              "content": "You",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 40781.787125,
+              "content": "'re all set for",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 40781.9935,
+              "content": " 3p",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 40782.036833,
+              "content": "m on September 24th, conf",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 40782.073083,
+              "content": "irmation number",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 40782.107541,
+              "content": " BSD-0004.",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 40782.802458,
+              "content": " Anything else I can help with?",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 40783.8055,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 40783.8055,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        }
+      ],
+      "toolCalls": [
+        {
+          "tool_call_id": "bench-interrupt-mid-sentence-1-bf8a5e-1",
+          "name": "book_appointment",
+          "arguments": "{\"date\":\"2026-09-24\",\"time\":\"15:00\"}",
+          "parsedArguments": {
+            "date": "2026-09-24",
+            "time": "15:00"
+          },
+          "at": 39617.495791,
+          "responseId": 2,
+          "result": {
+            "content": "Booked 2026-09-24 15:00, confirmation BSD-0004.",
+            "successful": true,
+            "at": 39617.609541
+          }
+        }
+      ],
+      "violations": [],
+      "keepalive": {
+        "enabled": true,
+        "sent": 1,
+        "echoed": 1,
+        "missed": 0
+      },
+      "agentUtterances": [
+        "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "One moment while I book your 3pm appointment on September 24th. You're all set for 3pm on September 24th, confirmation number BSD-0004. Anything else I can help with?"
+      ],
+      "durationMs": 3411.081999999995
+    },
+    {
+      "scenario": "interrupt-mid-sentence",
+      "run": 2,
+      "callId": "bench-interrupt-mid-sentence-2-71cf72",
+      "url": "ws://127.0.0.1:49564/llm-websocket",
+      "config": {
+        "auto_reconnect": true,
+        "call_details": true
+      },
+      "begin": {
+        "received": true,
+        "content": "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "ms": 2.6555000000007567
+      },
+      "turns": [
+        {
+          "responseId": 1,
+          "kind": "response_required",
+          "requestedAt": 40789.23025,
+          "chunks": [
+            {
+              "at": 41100.409583,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 41100.409583,
+          "superseded": true,
+          "supersededAt": 41091.547083,
+          "supersededBy": 2,
+          "timedOut": false
+        },
+        {
+          "responseId": 2,
+          "kind": "response_required",
+          "requestedAt": 41091.547083,
+          "chunks": [
+            {
+              "at": 41998.931458,
+              "content": "I",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 42579.575458,
+              "content": "'ll get",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 42579.767541,
+              "content": " you booked for September",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 42579.809625,
+              "content": " 24th at",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 42580.8435,
+              "content": " 3pm.",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 43021.063333,
+              "content": "One moment while I book your 3pm appointment on September 24th. ",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 44014.938583,
+              "content": "You",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 44173.212208,
+              "content": "'re all set for",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 44181.346125,
+              "content": " Thursday, September 24th",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 44181.4465,
+              "content": " at 3pm,",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 44181.491333,
+              "content": " confirmation BSD-",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 44181.525458,
+              "content": "0005. Anything else I",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 44191.658208,
+              "content": " can help with?",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 44204.708833,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 44204.708833,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        }
+      ],
+      "toolCalls": [
+        {
+          "tool_call_id": "bench-interrupt-mid-sentence-2-71cf72-1",
+          "name": "book_appointment",
+          "arguments": "{\"date\":\"2026-09-24\",\"time\":\"15:00\"}",
+          "parsedArguments": {
+            "date": "2026-09-24",
+            "time": "15:00"
+          },
+          "at": 43021.193291,
+          "responseId": 2,
+          "result": {
+            "content": "Booked 2026-09-24 15:00, confirmation BSD-0005.",
+            "successful": true,
+            "at": 43021.249708
+          }
+        }
+      ],
+      "violations": [],
+      "keepalive": {
+        "enabled": true,
+        "sent": 1,
+        "echoed": 1,
+        "missed": 0
+      },
+      "agentUtterances": [
+        "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "I'll get you booked for September 24th at 3pm.One moment while I book your 3pm appointment on September 24th. You're all set for Thursday, September 24th at 3pm, confirmation BSD-0005. Anything else I can help with?"
+      ],
+      "durationMs": 3420.178875000005
+    },
+    {
+      "scenario": "interrupt-mid-sentence",
+      "run": 3,
+      "callId": "bench-interrupt-mid-sentence-3-5d31c8",
+      "url": "ws://127.0.0.1:49564/llm-websocket",
+      "config": {
+        "auto_reconnect": true,
+        "call_details": true
+      },
+      "begin": {
+        "received": true,
+        "content": "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "ms": 2.1336670000018785
+      },
+      "turns": [
+        {
+          "responseId": 1,
+          "kind": "response_required",
+          "requestedAt": 44209.941875,
+          "chunks": [
+            {
+              "at": 44515.743333,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 44515.743333,
+          "superseded": true,
+          "supersededAt": 44510.656458,
+          "supersededBy": 2,
+          "timedOut": false
+        },
+        {
+          "responseId": 2,
+          "kind": "response_required",
+          "requestedAt": 44510.656458,
+          "chunks": [
+            {
+              "at": 46164.164375,
+              "content": "One moment while I book your appointment for September 24th at 3pm. ",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 47075.830333,
+              "content": "You",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 47340.912125,
+              "content": "'re all set for",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 47343.664041,
+              "content": " Thursday, September 24th",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 47343.778375,
+              "content": " at 3pm,",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 47343.823708,
+              "content": " confirmation number BSD",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 47343.860875,
+              "content": "-0006. Anything else",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 47343.896833,
+              "content": " I can help with?",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 47350,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 47350,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        }
+      ],
+      "toolCalls": [
+        {
+          "tool_call_id": "bench-interrupt-mid-sentence-3-5d31c8-1",
+          "name": "book_appointment",
+          "arguments": "{\"date\":\"2026-09-24\",\"time\":\"15:00\"}",
+          "parsedArguments": {
+            "date": "2026-09-24",
+            "time": "15:00"
+          },
+          "at": 46164.310041,
+          "responseId": 2,
+          "result": {
+            "content": "Booked 2026-09-24 15:00, confirmation BSD-0006.",
+            "successful": true,
+            "at": 46164.526333
+          }
+        }
+      ],
+      "violations": [],
+      "keepalive": {
+        "enabled": true,
+        "sent": 1,
+        "echoed": 1,
+        "missed": 0
+      },
+      "agentUtterances": [
+        "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "One moment while I book your appointment for September 24th at 3pm. You're all set for Thursday, September 24th at 3pm, confirmation number BSD-0006. Anything else I can help with?"
+      ],
+      "durationMs": 3144.4012499999953
+    },
+    {
+      "scenario": "reschedule-appointment",
+      "run": 1,
+      "callId": "bench-reschedule-appointment-1-8c2a38",
+      "url": "ws://127.0.0.1:49564/llm-websocket",
+      "config": {
+        "auto_reconnect": true,
+        "call_details": true
+      },
+      "begin": {
+        "received": true,
+        "content": "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "ms": 1.7927090000011958
+      },
+      "turns": [
+        {
+          "responseId": 1,
+          "kind": "response_required",
+          "requestedAt": 47356.085416,
+          "chunks": [
+            {
+              "at": 48188.949541,
+              "content": "What",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 48265.911791,
+              "content": " date and",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 48268.745791,
+              "content": " time would you like to",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 48268.807125,
+              "content": " move it to?",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 48292.481833,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 48292.481833,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        },
+        {
+          "responseId": 2,
+          "kind": "response_required",
+          "requestedAt": 48292.93775,
+          "chunks": [
+            {
+              "at": 49395.027166,
+              "content": "September",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 49804.015333,
+              "content": " 25th is a Friday, so that works within office hours. Should I go ahead and move your appointment to September 25th at 3pm?",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 49842.012416,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 49842.012416,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        }
+      ],
+      "toolCalls": [],
+      "violations": [],
+      "keepalive": {
+        "enabled": true,
+        "sent": 1,
+        "echoed": 1,
+        "missed": 0
+      },
+      "agentUtterances": [
+        "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "What date and time would you like to move it to?",
+        "September 25th is a Friday, so that works within office hours. Should I go ahead and move your appointment to September 25th at 3pm?"
+      ],
+      "durationMs": 2489.8502919999955
+    },
+    {
+      "scenario": "reschedule-appointment",
+      "run": 2,
+      "callId": "bench-reschedule-appointment-2-d03787",
+      "url": "ws://127.0.0.1:49564/llm-websocket",
+      "config": {
+        "auto_reconnect": true,
+        "call_details": true
+      },
+      "begin": {
+        "received": true,
+        "content": "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "ms": 2.006666999994195
+      },
+      "turns": [
+        {
+          "responseId": 1,
+          "kind": "response_required",
+          "requestedAt": 49847.164458,
+          "chunks": [
+            {
+              "at": 50616.099208,
+              "content": "I can",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 50798.610791,
+              "content": " help with that.",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 50802.368625,
+              "content": " What new",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 50802.470416,
+              "content": " date and time would you like for",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 50808.996666,
+              "content": " your appointment?",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 50821.29975,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 50821.29975,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        },
+        {
+          "responseId": 2,
+          "kind": "response_required",
+          "requestedAt": 50821.7215,
+          "chunks": [
+            {
+              "at": 52542.518541,
+              "content": "One moment while I move your appointment to September 25th at 3pm. ",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 53418.596541,
+              "content": "You",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 53739.346666,
+              "content": "'re all set,",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 53739.418791,
+              "content": " your appointment is now",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 53739.502125,
+              "content": " on",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 53739.768,
+              "content": " September 25th at 3p",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 53739.940125,
+              "content": "m. Is there anything else",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 53740.094375,
+              "content": " I can help with?",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 53741.003208,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 53741.003208,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        }
+      ],
+      "toolCalls": [
+        {
+          "tool_call_id": "bench-reschedule-appointment-2-d03787-1",
+          "name": "book_appointment",
+          "arguments": "{\"date\":\"2026-09-25\",\"time\":\"15:00\"}",
+          "parsedArguments": {
+            "date": "2026-09-25",
+            "time": "15:00"
+          },
+          "at": 52542.705625,
+          "responseId": 2,
+          "result": {
+            "content": "Booked 2026-09-25 15:00, confirmation BSD-0007.",
+            "successful": true,
+            "at": 52542.841041
+          }
+        }
+      ],
+      "violations": [],
+      "keepalive": {
+        "enabled": true,
+        "sent": 1,
+        "echoed": 1,
+        "missed": 0
+      },
+      "agentUtterances": [
+        "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "I can help with that. What new date and time would you like for your appointment?",
+        "One moment while I move your appointment to September 25th at 3pm. You're all set, your appointment is now on September 25th at 3pm. Is there anything else I can help with?"
+      ],
+      "durationMs": 3897.9202919999952
+    },
+    {
+      "scenario": "reschedule-appointment",
+      "run": 3,
+      "callId": "bench-reschedule-appointment-3-146da0",
+      "url": "ws://127.0.0.1:49564/llm-websocket",
+      "config": {
+        "auto_reconnect": true,
+        "call_details": true
+      },
+      "begin": {
+        "received": true,
+        "content": "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "ms": 1.4209160000027623
+      },
+      "turns": [
+        {
+          "responseId": 1,
+          "kind": "response_required",
+          "requestedAt": 53745.085958,
+          "chunks": [
+            {
+              "at": 54663.26775,
+              "content": "What",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 54710.898916,
+              "content": " day",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 54712.931625,
+              "content": " and time would you like to",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 54712.995916,
+              "content": " move it to?",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 54757.2765,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 54757.2765,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        },
+        {
+          "responseId": 2,
+          "kind": "response_required",
+          "requestedAt": 54757.675583,
+          "chunks": [
+            {
+              "at": 55626.378375,
+              "content": "September",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 56143.92925,
+              "content": " 25th is",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 56149.0385,
+              "content": " a",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 56149.131125,
+              "content": " Friday, so that",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 56149.171166,
+              "content": " time",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 56149.2175,
+              "content": " works f",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 56149.249333,
+              "content": "ine for our office hours.",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 56149.27925,
+              "content": " Sh",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 56149.308875,
+              "content": "all I go ahead and move",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 56149.348708,
+              "content": " your appointment to ",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 56149.379333,
+              "content": "3p",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 56149.409125,
+              "content": "m on September",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 56159.357458,
+              "content": " 25th?",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 56161.31825,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 56161.31825,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        }
+      ],
+      "toolCalls": [],
+      "violations": [],
+      "keepalive": {
+        "enabled": true,
+        "sent": 1,
+        "echoed": 1,
+        "missed": 0
+      },
+      "agentUtterances": [
+        "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "What day and time would you like to move it to?",
+        "September 25th is a Friday, so that time works fine for our office hours. Shall I go ahead and move your appointment to 3pm on September 25th?"
+      ],
+      "durationMs": 2418.707083000001
+    },
+    {
+      "scenario": "unintelligible-audio",
+      "run": 1,
+      "callId": "bench-unintelligible-audio-1-59e7a3",
+      "url": "ws://127.0.0.1:49564/llm-websocket",
+      "config": {
+        "auto_reconnect": true,
+        "call_details": true
+      },
+      "begin": {
+        "received": true,
+        "content": "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "ms": 1.8213749999995343
+      },
+      "turns": [
+        {
+          "responseId": 1,
+          "kind": "response_required",
+          "requestedAt": 56165.854041,
+          "chunks": [
+            {
+              "at": 57043.742375,
+              "content": "I",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 57557.152166,
+              "content": "'m sorry, I did",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 57557.3655,
+              "content": "n't qu",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 57557.411875,
+              "content": "ite catch that —",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 57557.459208,
+              "content": " could you rep",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 57557.492,
+              "content": "eat what",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 57557.527291,
+              "content": " you'd like to do",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 57557.556958,
+              "content": ",",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 57557.587375,
+              "content": " like boo",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 57557.617375,
+              "content": "king,",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 57557.95775,
+              "content": " mo",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 57563.395333,
+              "content": "ving, or can",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 57611.2005,
+              "content": "celing an appointment?",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 57649.308625,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 57649.308625,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        }
+      ],
+      "toolCalls": [],
+      "violations": [],
+      "keepalive": {
+        "enabled": true,
+        "sent": 0,
+        "echoed": 0,
+        "missed": 0
+      },
+      "agentUtterances": [
+        "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "I'm sorry, I didn't quite catch that — could you repeat what you'd like to do, like booking, moving, or canceling an appointment?"
+      ],
+      "durationMs": 1487.3890830000018
+    },
+    {
+      "scenario": "unintelligible-audio",
+      "run": 2,
+      "callId": "bench-unintelligible-audio-2-450c92",
+      "url": "ws://127.0.0.1:49564/llm-websocket",
+      "config": {
+        "auto_reconnect": true,
+        "call_details": true
+      },
+      "begin": {
+        "received": true,
+        "content": "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "ms": 2.0957500000004075
+      },
+      "turns": [
+        {
+          "responseId": 1,
+          "kind": "response_required",
+          "requestedAt": 57654.411375,
+          "chunks": [
+            {
+              "at": 58604.1225,
+              "content": "I",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 58884.17125,
+              "content": "'m sorry, I did",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 58885.645166,
+              "content": "n't catch that. Could",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 58885.759291,
+              "content": " you t",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 58885.799583,
+              "content": "ell me if",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 58885.832875,
+              "content": " you'd like to book,",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 58885.8765,
+              "content": " move",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 58909.049958,
+              "content": ", or cancel an appoint",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 58943.778375,
+              "content": "ment?",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 58957.444166,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 58957.444166,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        }
+      ],
+      "toolCalls": [],
+      "violations": [],
+      "keepalive": {
+        "enabled": true,
+        "sent": 0,
+        "echoed": 0,
+        "missed": 0
+      },
+      "agentUtterances": [
+        "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "I'm sorry, I didn't catch that. Could you tell me if you'd like to book, move, or cancel an appointment?"
+      ],
+      "durationMs": 1307.7864169999957
+    },
+    {
+      "scenario": "unintelligible-audio",
+      "run": 3,
+      "callId": "bench-unintelligible-audio-3-38a215",
+      "url": "ws://127.0.0.1:49564/llm-websocket",
+      "config": {
+        "auto_reconnect": true,
+        "call_details": true
+      },
+      "begin": {
+        "received": true,
+        "content": "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "ms": 1.6812080000017886
+      },
+      "turns": [
+        {
+          "responseId": 1,
+          "kind": "response_required",
+          "requestedAt": 58962.6235,
+          "chunks": [
+            {
+              "at": 59838.889916,
+              "content": "I",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 60399.932625,
+              "content": "'m sorry, I",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 60400.131166,
+              "content": " did",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 60400.171333,
+              "content": "n't catch that. Could",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 60400.204791,
+              "content": " you please repeat what",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 60400.23525,
+              "content": " you'd like to do",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 60400.266666,
+              "content": "—",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 60400.305375,
+              "content": "book",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 60400.335625,
+              "content": ",",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 60400.365375,
+              "content": " move",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 60400.901083,
+              "content": ", or cancel an appoint",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 60400.947791,
+              "content": "ment?",
+              "content_complete": false,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            },
+            {
+              "at": 60402.277875,
+              "content": "",
+              "content_complete": true,
+              "end_call": false,
+              "transfer_number": null,
+              "digit_to_press": null
+            }
+          ],
+          "completedAt": 60402.277875,
+          "superseded": false,
+          "supersededAt": null,
+          "supersededBy": null,
+          "timedOut": false
+        }
+      ],
+      "toolCalls": [],
+      "violations": [],
+      "keepalive": {
+        "enabled": true,
+        "sent": 0,
+        "echoed": 0,
+        "missed": 0
+      },
+      "agentUtterances": [
+        "Hi, this is Ava at Bright Smile Dental. How can I help you today?",
+        "I'm sorry, I didn't catch that. Could you please repeat what you'd like to do—book, move, or cancel an appointment?"
+      ],
+      "durationMs": 1443.284458000002
+    }
+  ]
+}
