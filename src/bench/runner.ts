@@ -26,6 +26,15 @@ export async function runScenario(scenario: Scenario, opts: RunOptions): Promise
   const transcript: Utterance[] = [];
   const agentUtterances: string[] = [];
   let nextId = 1;
+  const sendUserTurn = (text: string): number => {
+    transcript.push({ role: 'user', content: text });
+    client.sendUpdateOnly([...transcript], 'user_turn');
+    const id = nextId++;
+    // api-notes §4: turntaking "agent_turn" is sent "right before agent is about to speak".
+    client.sendUpdateOnly([...transcript], 'agent_turn');
+    client.requestResponse('response_required', id, [...transcript]);
+    return id;
+  };
   try {
     const begun = await client.waitForBegin();
     if (begun && client.begin.content.length > 0) {
@@ -40,12 +49,7 @@ export async function runScenario(scenario: Scenario, opts: RunOptions): Promise
         await client.waitForComplete(id, scenario.turn_timeout_ms);
         completedId = id;
       } else {
-        transcript.push({ role: 'user', content: turn.user });
-        client.sendUpdateOnly([...transcript], 'user_turn');
-        const id = nextId++;
-        // api-notes §4: turntaking "agent_turn" is sent "right before agent is about to speak".
-        client.sendUpdateOnly([...transcript], 'agent_turn');
-        client.requestResponse('response_required', id, [...transcript]);
+        const id = sendUserTurn(turn.user);
         if (turn.interrupt) {
           await pause(turn.interrupt.after_ms);
           // Whatever the agent already streamed under the superseded id was spoken, so it stays in the transcript.
@@ -54,11 +58,7 @@ export async function runScenario(scenario: Scenario, opts: RunOptions): Promise
             transcript.push({ role: 'agent', content: partial });
             agentUtterances.push(partial);
           }
-          transcript.push({ role: 'user', content: turn.interrupt.user });
-          client.sendUpdateOnly([...transcript], 'user_turn');
-          const id2 = nextId++;
-          client.sendUpdateOnly([...transcript], 'agent_turn');
-          client.requestResponse('response_required', id2, [...transcript]);
+          const id2 = sendUserTurn(turn.interrupt.user);
           await client.waitForComplete(id2, scenario.turn_timeout_ms);
           completedId = id2;
         } else {
