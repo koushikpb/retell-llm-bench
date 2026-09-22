@@ -3,7 +3,7 @@ import { handleConnection, type ServerDeps } from './session.js';
 
 export interface ReferenceServer { port: number; url: string; close(): Promise<void> }
 
-// api-notes §2: Retell appends the call id as the last path segment; a trailing slash is normalized.
+// Retell WebSocket reference: Retell appends the call id as the last path segment; a trailing slash is normalized.
 export function callIdFromUrl(url: string | undefined): string {
   let path: string;
   try {

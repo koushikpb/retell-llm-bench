@@ -1,5 +1,5 @@
 name: unintelligible-audio
-description: Retell transcribed no words (api-notes §4 sends "(unintelligible audio)"); the agent should ask the caller to repeat and call no tool.
+description: Retell transcribed no words (Retell WebSocket reference sends "(unintelligible audio)"); the agent should ask the caller to repeat and call no tool.
 turns:
   - user: "(unintelligible audio)"
 expect:

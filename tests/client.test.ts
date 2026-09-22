@@ -154,7 +154,7 @@ describe('BenchClient', () => {
     await c.close();
   });
 
-  it('flags and drops content sent after content_complete: true (api-notes §5)', async () => {
+  it('flags and drops content sent after content_complete: true (Retell WebSocket reference)', async () => {
     const srv = await boot(script({ byResponseId: { 1: reply({ chunks: [{ text: 'Done.', delayMs: 5 }], lateChunks: [{ text: 'late', delayMs: 20 }] }) } }));
     const c = await BenchClient.connect({ url: srv.url, callId: 'call-k' });
     await c.waitForBegin();

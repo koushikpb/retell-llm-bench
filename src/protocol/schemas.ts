@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-// ---- shared (api-notes §4 line 37, §7 line 81) ----
+// ---- shared (Retell WebSocket reference and setup guide) ----
 export const UtteranceSchema = z.object({
   role: z.enum(['agent', 'user']),
   content: z.string(),
@@ -8,7 +8,7 @@ export const UtteranceSchema = z.object({
 });
 export type Utterance = z.infer<typeof UtteranceSchema>;
 
-// ---- Retell -> server, discriminator interaction_type (api-notes §4) ----
+// ---- Retell -> server, discriminator interaction_type (Retell WebSocket reference) ----
 export const PingPongRequestSchema = z.object({ interaction_type: z.literal('ping_pong'), timestamp: z.int() });
 export const CallDetailsRequestSchema = z.object({ interaction_type: z.literal('call_details'), call: z.record(z.string(), z.unknown()) });
 export const UpdateOnlyRequestSchema = z.object({
@@ -40,7 +40,7 @@ export const RetellFrameSchema = z.discriminatedUnion('interaction_type', [
 ]);
 export type RetellFrame = z.infer<typeof RetellFrameSchema>;
 
-// ---- server -> Retell, discriminator response_type (api-notes §5, §7) ----
+// ---- server -> Retell, discriminator response_type (Retell WebSocket reference and setup guide) ----
 const actionFields = {
   no_interruption_allowed: z.boolean().optional(),
   end_call: z.boolean().optional(),
@@ -65,7 +65,7 @@ export const ResponseResponseSchema = z.object({
   show_transferee_as_caller: z.boolean().optional(),
 });
 // agent_interrupt, update_agent and metadata are accepted by response_type only: the bench never emits or scores
-// them (api-notes §5 documents their fields; detailed validation was cut in plan review round 1).
+// them (the Retell WebSocket reference documents their fields, and the bench has no reason to validate them).
 export const AgentInterruptSchema = z.object({ response_type: z.literal('agent_interrupt') });
 export const ToolCallInvocationSchema = z.object({
   response_type: z.literal('tool_call_invocation'),
@@ -130,7 +130,7 @@ export function validateServerFrame(raw: string): { frame: ServerFrame | null; v
   }
   const obj = parsed as Record<string, unknown>;
   if (obj.response_type === undefined) {
-    violations.push({ code: 'missing_response_type', message: 'no response_type; Retell treats this as a response and the mistake fails silently (api-notes §1)', raw });
+    violations.push({ code: 'missing_response_type', message: 'no response_type; Retell treats this as a response and the mistake fails silently (Retell custom-LLM overview)', raw });
     obj.response_type = 'response';
   } else if (typeof obj.response_type !== 'string' || !RESPONSE_TYPES.has(obj.response_type)) {
     return { frame: null, violations: [{ code: 'unknown_response_type', message: `unknown response_type ${JSON.stringify(obj.response_type)}`, raw }] };
@@ -138,14 +138,14 @@ export function validateServerFrame(raw: string): { frame: ServerFrame | null; v
   const result = ServerFrameSchema.safeParse(obj);
   if (!result.success) {
     const detail = result.error.issues.map((i) => `${i.path.map(String).join('.') || '(root)'}: ${i.message}`).join('; ');
-    violations.push({ code: 'schema', message: `Retell would drop this ${String(obj.response_type)} event: ${detail} (api-notes §5)`, raw });
+    violations.push({ code: 'schema', message: `Retell would drop this ${String(obj.response_type)} event: ${detail} (Retell WebSocket reference)`, raw });
     return { frame: null, violations };
   }
   const frame = result.data;
   if (frame.response_type === 'response') {
     const actions = [frame.end_call === true, frame.transfer_number !== undefined, frame.digit_to_press !== undefined].filter(Boolean).length;
     if (actions > 1) {
-      violations.push({ code: 'exclusive_actions', message: 'end_call, transfer_number and digit_to_press are mutually exclusive; Retell runs at most one (api-notes §5)', raw });
+      violations.push({ code: 'exclusive_actions', message: 'end_call, transfer_number and digit_to_press are mutually exclusive; Retell runs at most one (Retell WebSocket reference)', raw });
     }
   }
   return { frame, violations };

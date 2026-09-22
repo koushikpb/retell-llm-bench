@@ -10,7 +10,7 @@ export interface FakeReply {
   toolCalls: FakeToolCall[];
   rawFrames: unknown[];
   endCall: boolean;
-  // Chunks sent after the completion frame, to exercise a server that violates api-notes §5
+  // Chunks sent after the completion frame, to exercise a server that violates Retell WebSocket reference
   // ("Retell accepts content only ... until you mark that response complete").
   lateChunks: FakeChunk[];
 }

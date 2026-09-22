@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { RetellFrameSchema, ServerFrameSchema, validateServerFrame } from '../src/protocol/schemas.js';
 
-describe('Retell -> server frames (api-notes §4, §6)', () => {
+describe('Retell -> server frames (Retell WebSocket reference)', () => {
   it('parses ping_pong, update_only, response_required, reminder_required', () => {
     expect(RetellFrameSchema.safeParse({ interaction_type: 'ping_pong', timestamp: 1703302407333 }).success).toBe(true);
     expect(
@@ -26,7 +26,7 @@ describe('Retell -> server frames (api-notes §4, §6)', () => {
   });
 });
 
-describe('server -> Retell frames (api-notes §5, §6, §7)', () => {
+describe('server -> Retell frames (Retell WebSocket reference and setup guide)', () => {
   it('parses every documented response_type', () => {
     const frames = [
       { response_type: 'config', config: { auto_reconnect: true, call_details: true } },
@@ -50,13 +50,13 @@ describe('validateServerFrame', () => {
     expect(r.frame).toMatchObject({ response_type: 'response', response_id: 3 });
   });
 
-  it('flags a missing response_type but parses the frame as a response (api-notes §1)', () => {
+  it('flags a missing response_type but parses the frame as a response (Retell custom-LLM overview)', () => {
     const r = validateServerFrame(JSON.stringify({ response_id: 1, content: 'hi', content_complete: false }));
     expect(r.violations.map((v) => v.code)).toEqual(['missing_response_type']);
     expect(r.frame).toMatchObject({ response_type: 'response', response_id: 1, content: 'hi' });
   });
 
-  it('drops a response whose content_complete is the string "true" (api-notes §5 troubleshooting)', () => {
+  it('drops a response whose content_complete is the string "true" (Retell troubleshooting page)', () => {
     const r = validateServerFrame(JSON.stringify({ response_type: 'response', response_id: 1, content: 'hi', content_complete: 'true' }));
     expect(r.frame).toBeNull();
     expect(r.violations).toHaveLength(1);
@@ -70,7 +70,7 @@ describe('validateServerFrame', () => {
     expect(r.violations[0].code).toBe('schema');
   });
 
-  it('keeps the frame but flags mutually exclusive actions (api-notes §5)', () => {
+  it('keeps the frame but flags mutually exclusive actions (Retell WebSocket reference)', () => {
     const r = validateServerFrame(
       JSON.stringify({ response_type: 'response', response_id: 2, content: 'bye', content_complete: true, end_call: true, transfer_number: '+14155550100' }),
     );

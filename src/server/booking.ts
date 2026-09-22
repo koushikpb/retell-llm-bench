@@ -1,7 +1,7 @@
 export interface BookingArgs { date: string; time: string }
 export interface BookingResult { created: boolean; confirmation: string; key: string }
 
-// Idempotent side effect: the same call id + the same arguments is a no-op (api-notes §8).
+// Idempotent side effect: the same call id + the same arguments is a no-op (Retell best-practice page).
 export class BookingStore {
   private readonly bookings = new Map<string, string>();
 

@@ -1,5 +1,5 @@
 name: change-mind-before-booking
-description: Caller asks to book, then 200 ms later says not to; a fast tool can commit before the supersede arrives (api-notes §8), so a failure here shows the trap rather than a bench bug.
+description: Caller asks to book, then 200 ms later says not to; a fast tool can commit before the supersede arrives (Retell best-practice page), so a failure here shows the trap rather than a bench bug.
 turns:
   - user: "Book me for September 23rd at 10am."
     interrupt:

@@ -89,7 +89,7 @@ describe('runScenario', () => {
     expect(s.findings.filter((f) => f.code !== 'tool_args_mismatch').map((f) => f.code).sort()).toEqual(['agent_text_missing', 'content_complete_missing', 'protocol_violation', 'tool_duplicate', 'tool_missing', 'tool_unnecessary']);
   });
 
-  it('flags a server that runs a tool and says nothing for the turn (silent_tool_turn, api-notes §8)', async () => {
+  it('flags a server that runs a tool and says nothing for the turn (silent_tool_turn, Retell best-practice page)', async () => {
     const silentScenario = ScenarioSchema.parse({
       name: 'silent-test',
       description: 'inline',

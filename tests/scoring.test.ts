@@ -49,7 +49,7 @@ describe('scoreRun', () => {
     expect(s.completeReceived).toBe(0);
   });
 
-  it('flags a completed turn that ran a tool but said nothing (silent_tool_turn, api-notes §8)', () => {
+  it('flags a completed turn that ran a tool but said nothing (silent_tool_turn, Retell best-practice page)', () => {
     const silent = turn(1, true, { chunks: [{ at: 100, content: '', content_complete: true, end_call: false, transfer_number: null, digit_to_press: null }] });
     const s = scoreRun(scenario, result({ turns: [silent], toolCalls: [call(1, 'book_appointment', { date: '2026-09-24', time: '15:00' })] }));
     expect(s.findings.map((f) => f.code)).toEqual(['silent_tool_turn']);

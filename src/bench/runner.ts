@@ -30,7 +30,7 @@ export async function runScenario(scenario: Scenario, opts: RunOptions): Promise
     transcript.push({ role: 'user', content: text });
     client.sendUpdateOnly([...transcript], 'user_turn');
     const id = nextId++;
-    // api-notes §4: turntaking "agent_turn" is sent "right before agent is about to speak".
+    // Retell WebSocket reference: turntaking "agent_turn" is sent "right before agent is about to speak".
     client.sendUpdateOnly([...transcript], 'agent_turn');
     client.requestResponse('response_required', id, [...transcript]);
     return id;

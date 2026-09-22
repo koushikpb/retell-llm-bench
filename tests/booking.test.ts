@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { BookingStore } from '../src/server/booking.js';
 import { TOOLS, SYSTEM_PROMPT, BEGIN_MESSAGE } from '../src/server/tools.js';
 
-describe('BookingStore (api-notes §8: key the write on the call ID plus the arguments)', () => {
+describe('BookingStore (Retell best-practice page: key the write on the call ID plus the arguments)', () => {
   it('creates once and returns the same confirmation on a repeat with the same call id and args', () => {
     const store = new BookingStore();
     const first = store.book('call-1', { date: '2026-09-24', time: '14:00' });
@@ -21,7 +21,7 @@ describe('BookingStore (api-notes §8: key the write on the call ID plus the arg
   });
 });
 
-describe('tools (api-notes §8: every tool carries a message parameter)', () => {
+describe('tools (Retell best-practice page: every tool carries a message parameter)', () => {
   it('defines book_appointment and end_call, each requiring message', () => {
     expect(TOOLS.map((t) => t.name)).toEqual(['book_appointment', 'end_call']);
     for (const t of TOOLS) {

@@ -21,7 +21,7 @@ describe('buildMessages', () => {
 });
 
 describe('callIdFromUrl', () => {
-  it('takes the last path segment (api-notes §2)', () => {
+  it('takes the last path segment (Retell WebSocket reference)', () => {
     expect(callIdFromUrl('/llm-websocket/call_abc')).toBe('call_abc');
     expect(callIdFromUrl('/llm-websocket/call_abc/')).toBe('call_abc');
     expect(callIdFromUrl(undefined)).toBe('unknown-call');
@@ -106,7 +106,7 @@ describe('reference session over the wire', () => {
     await c.close();
   });
 
-  it('still sends content_complete when the provider throws (finally block, api-notes §8)', async () => {
+  it('still sends content_complete when the provider throws (finally block, Retell best-practice page)', async () => {
     const { c } = await boot([{ textChunks: [], chunkDelayMs: 0, toolUses: [], fail: true }]);
     c.send(req(5, 'Anything'));
     expect(await c.waitFor((f) => f.response_id === 5 && f.content_complete === true)).toEqual({ response_type: 'response', response_id: 5, content: '', content_complete: true });

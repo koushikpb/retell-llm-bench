@@ -1,6 +1,6 @@
 import type { ScenarioRunResult, TurnRecord } from './types.js';
 
-// api-notes §8: "the number that matters is time to first token plus the time to finish that first sentence".
+// Retell best-practice page: "the number that matters is time to first token plus the time to finish that first sentence".
 export const SENTENCE_END = /[.!?]["')\]]?\s*$/;
 
 export function firstSentenceMs(turn: TurnRecord): number | null {

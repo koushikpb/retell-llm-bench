@@ -10,7 +10,7 @@ export interface BenchClientOptions {
   beginTimeoutMs?: number;
 }
 
-// Sample call object from api-notes §4 (call_details); web-call fields omitted on purpose.
+// Sample call object from Retell WebSocket reference (call_details); web-call fields omitted on purpose.
 function sampleCall(callId: string): Record<string, unknown> {
   return {
     call_type: 'phone_call',
@@ -144,14 +144,14 @@ export class BenchClient {
   private onMessage(raw: string, isBinary: boolean): void {
     const at = performance.now();
     if (isBinary) {
-      this.violations.push({ code: 'binary_frame', message: 'binary frame; Retell closes the connection with code 1007 (api-notes §2)', raw: '<binary>', at });
+      this.violations.push({ code: 'binary_frame', message: 'binary frame; Retell closes the connection with code 1007 (Retell WebSocket reference)', raw: '<binary>', at });
       return;
     }
     const { frame, violations } = validateServerFrame(raw);
     for (const v of violations) this.violations.push({ ...v, at });
     if (!frame) return;
     if (frame.response_type === 'config' && this.frames.length > 0) {
-      this.violations.push({ code: 'config_not_first', message: 'config arrived after another frame; Retell acts on it as it arrives (api-notes §3)', raw, at });
+      this.violations.push({ code: 'config_not_first', message: 'config arrived after another frame; Retell acts on it as it arrives (Retell custom-LLM overview)', raw, at });
     }
     this.frames.push({ at, frame });
     switch (frame.response_type) {
@@ -178,7 +178,7 @@ export class BenchClient {
       case 'tool_call_result': {
         const call = this.toolCalls.find((c) => c.tool_call_id === frame.tool_call_id);
         if (call) call.result = { content: frame.content, successful: frame.successful ?? null, at };
-        else this.violations.push({ code: 'orphan_tool_result', message: `tool_call_result for unknown tool_call_id ${frame.tool_call_id} (api-notes §5: same id for both)`, raw, at });
+        else this.violations.push({ code: 'orphan_tool_result', message: `tool_call_result for unknown tool_call_id ${frame.tool_call_id} (Retell WebSocket reference: same id for both)`, raw, at });
         break;
       }
       default:
@@ -212,7 +212,7 @@ export class BenchClient {
     }, interval);
   }
 
-  // api-notes §5: the requirement is "a ping_pong event back every 2s" with an integer timestamp (the schema checks the
+  // Retell WebSocket reference: the requirement is "a ping_pong event back every 2s" with an integer timestamp (the schema checks the
   // field); the guide's code echoes the request's timestamp, but equality is not documented as required, so any reply
   // credits the oldest outstanding ping.
   private onPong(_ts: number): void {
@@ -234,11 +234,11 @@ export class BenchClient {
     }
     const turn = this.turns.find((t) => t.responseId === frame.response_id);
     if (!turn) {
-      this.violations.push({ code: 'wrong_response_id', message: `response for response_id ${frame.response_id}, which was never requested; Retell discards it silently (api-notes §5)`, raw, at });
+      this.violations.push({ code: 'wrong_response_id', message: `response for response_id ${frame.response_id}, which was never requested; Retell discards it silently (Retell WebSocket reference)`, raw, at });
       return;
     }
     if (turn.completedAt !== null) {
-      this.violations.push({ code: 'content_after_complete', message: `response_id ${frame.response_id} sent content after content_complete: true; Retell ignores it (api-notes §5)`, raw, at });
+      this.violations.push({ code: 'content_after_complete', message: `response_id ${frame.response_id} sent content after content_complete: true; Retell ignores it (Retell WebSocket reference)`, raw, at });
       return;
     }
     turn.chunks.push({

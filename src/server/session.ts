@@ -10,7 +10,7 @@ export interface ServerDeps {
   log: (line: string) => void;
 }
 
-// api-notes §8: on reminder_required "nudge rather than answering a question nobody asked".
+// Retell best-practice page: on reminder_required "nudge rather than answering a question nobody asked".
 export const REMINDER_NOTE = '[The caller has been silent for a while. Nudge them briefly; do not answer a question nobody asked.]';
 
 export function buildMessages(transcript: Utterance[], kind: 'response_required' | 'reminder_required'): LlmMessage[] {
@@ -40,7 +40,7 @@ export function handleConnection(ws: WebSocket, callId: string, deps: ServerDeps
   let inflight: AbortController | null = null;
   let toolSeq = 0;
 
-  // api-notes §3: config first, then the begin message with response_id 0.
+  // Retell custom-LLM overview: config first, then the begin message with response_id 0.
   send({ response_type: 'config', config: { auto_reconnect: true, call_details: true } });
   send({ response_type: 'response', response_id: 0, content: BEGIN_MESSAGE, content_complete: true });
 
@@ -130,7 +130,7 @@ export function handleConnection(ws: WebSocket, callId: string, deps: ServerDeps
     } catch (err) {
       if (!controller.signal.aborted) deps.log(`${callId}: response ${id} failed: ${(err as Error).message}`);
     } finally {
-      // api-notes §8: "Send content_complete: true in a finally block."
+      // Retell best-practice page: "Send content_complete: true in a finally block."
       if (ws.readyState === ws.OPEN) send({ response_type: 'response', response_id: id, content: '', content_complete: true, ...(endCall ? { end_call: true } : {}) });
     }
   }
