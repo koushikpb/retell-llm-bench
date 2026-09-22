@@ -2,7 +2,7 @@
 
 An offline test bench for [Retell](https://www.retellai.com) custom-LLM servers. It plays the Retell side of the custom-LLM WebSocket protocol against any local server, runs a YAML scenario suite, and prints a results table: time to first sentence, `content_complete` discipline, tool calls missing / unnecessary / duplicate, and protocol violations.
 
-Retell's docs say a custom-LLM agent cannot use the playground, simulation testing, or batch testing, so "Web and phone calls are the only way to test" (https://docs.retellai.com/integrate-llm/overview). This bench is the missing offline harness. I built it as a skills demonstration for the Forward Deployed Engineer, New Grad role (https://www.workatastartup.com/jobs/109576).
+Retell's docs say a custom-LLM agent cannot use the playground, simulation testing, or batch testing, so "Web and phone calls are the only way to test" (https://docs.retellai.com/integrate-llm/overview). This bench is the missing offline harness.
 
 ![60-second bench run](docs/demo.gif)
 
@@ -64,32 +64,3 @@ Nine YAML files in `scenarios/`: book, reschedule, interrupt mid-sentence, calle
 ## Tests
 
 `npm test` runs the vitest suite: protocol schemas, the fake server, the bench client, scenarios, metrics, scoring, the transcript diff, the runner, the CLI, the booking store, and the reference session (with a fake LLM). Nothing in the tests needs a key or a network.
-
-## What was left out, and why
-
-- No Retell account, no hosted API, no real call. The bench talks only to local WebSocket servers; the protocol comes from Retell's public docs: the WebSocket reference (https://docs.retellai.com/api-references/llm-websocket), the custom-LLM overview (https://docs.retellai.com/integrate-llm/overview), the setup guide (https://docs.retellai.com/integrate-llm/setup-websocket-server), the best-practice page (https://docs.retellai.com/integrate-llm/llm-best-practice), and the troubleshooting page (https://docs.retellai.com/integrate-llm/troubleshooting).
-- No LLM-judge grading. Findings are deterministic (expected tool set, completion, protocol rules) so there is no judge bias; grading tone or grounding would need a judge and is listed below.
-- `agent_interrupt`, `update_agent`, `metadata` are accepted by `response_type` only (their fields are not validated) because the bench never asks for them and never scores them.
-- No reconnect simulation (Retell's 3-attempt connect and mid-call reconnects) and no `transcript_with_tool_calls` playback.
-- Transcript diffs are informational. Model wording varies between runs, so the diff against `agent_transcript` is printed and never scored; the scored text check is the `agent_text_contains` substring list.
-- One tool call per turn in the reference server, then at most one follow-up generation. If the model returns two tool uses in one turn, the server runs the first, logs the rest, and finishes the turn; the bench would show the dropped call as `tool_missing`.
-- TTFS counts only `response_required` turns. A `reminder_required` nudge is timed by the same clock but kept out of the p50/p90 pool.
-
-## What I'd add next
-
-- A latency budget per turn (Retell reports `llm` and `llm_websocket_network_rtt`; the bench could flag turns over a threshold).
-- LLM-judge grading for grounding and tone, kept separate from the deterministic columns.
-- Recorded real-call transcripts as scenarios, once a Retell account is in the picture.
-- A `retell-llm-protocol` package extracted from `src/protocol/schemas.ts`.
-
-## Layout
-
-```
-src/protocol/   zod schemas + validateServerFrame
-src/bench/      client, scenario loader, runner, metrics, scoring, report, CLI
-src/server/     fake (scripted) server, reference server (session, Claude client, booking, tools)
-scenarios/      YAML scenario suite
-scripts/        smoke.ts (fake, no key), results.ts (reference server in-process), wait-ws.ts, replay.ts
-tests/          vitest
-docs/           smoke.txt, results.md, results.json, demo.gif
-```
