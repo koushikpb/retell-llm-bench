@@ -1,12 +1,10 @@
 # retell-llm-bench
 
-An offline test bench for [Retell](https://www.retellai.com) custom-LLM servers. It plays the Retell side of the custom-LLM WebSocket protocol against any local server, runs a YAML scenario suite, and prints a results table: time to first sentence, `content_complete` discipline, tool calls missing / unnecessary / duplicate, and protocol violations.
-
-Retell's docs say a custom-LLM agent cannot use the playground, simulation testing, or batch testing, so "Web and phone calls are the only way to test" (https://docs.retellai.com/integrate-llm/overview). This bench is the missing offline harness.
+An offline test bench for [Retell](https://www.retellai.com) custom-LLM servers. It plays the Retell side of the custom-LLM WebSocket protocol against a local server, runs nine scripted call scenarios (booking, rescheduling, interruptions, silence, off-script questions, goodbye), and reports time to first sentence, `content_complete` discipline, tool calls missing / unnecessary / duplicate, and protocol violations. Retell's docs say a custom-LLM agent can only be tested with web and phone calls (https://docs.retellai.com/integrate-llm/overview); this is the offline harness.
 
 ![60-second bench run](docs/demo.gif)
 
-## Run it in three commands
+## Run it
 
 ```bash
 npm install
@@ -14,30 +12,11 @@ npm run smoke      # no key: runs the suite against a scripted fake server (star
 npm run results    # with ANTHROPIC_API_KEY in .env.local (see .env.example): starts the Claude reference server in-process, 3 runs per scenario, writes docs/results.md
 ```
 
-All three run in one terminal. To point the bench at your own server: start it (or `npm run server` for the bundled Claude one on `ws://127.0.0.1:3217/llm-websocket`, or `npm run fake` for the scripted one on port 3218) and in a second terminal run `npm run bench -- --url ws://127.0.0.1:8080/llm-websocket --runs 3 --json out.json`. Both bundled servers listen on 127.0.0.1 only.
+To test your own server, start it and run `npm run bench -- --url ws://127.0.0.1:8080/llm-websocket --runs 3 --json out.json`. `npm test` runs the test suite; it needs no key.
 
-## What the bench does
+## Results
 
-For each scenario it opens `ws://<host>/llm-websocket/<call_id>`, waits for the server's `config` and the begin message (`response_id: 0`), then plays the caller's turns: `update_only` with the transcript and `turntaking: "user_turn"`, then `response_required` with the next `response_id`. The bench sends `turntaking: "agent_turn"` right before each `response_required`; Retell's reference documents the field but not its exact timing relative to `response_required`, so a server should not key on that order. A turn can carry an interruption (more caller speech after N ms and a new `response_required` with a higher `response_id`, so the earlier one is superseded, exactly as Retell does when the caller keeps talking) or be a reminder (`reminder_required`). An interruption's `after_ms` counts from the `response_required` send; `after_first_chunk_ms` counts from the agent's first spoken chunk instead, so "interrupt mid-sentence" lands after the agent has actually started talking. When the server's config asks for `auto_reconnect`, the bench sends `ping_pong` every 2 s and expects the echo within 5 s. Every server frame is validated with zod schemas built from the protocol reference; frames Retell would drop or misread become findings instead of silent failures. Below the table, `docs/results.md` prints one transcript diff per run: the scenario's `expect.agent_transcript` (the author's reference wording) against what the server actually said, as a unified-style diff, so wording drift is visible without being scored (in interrupt scenarios the text spoken before the interruption shows as one extra `+` line).
-
-Per scenario it reports:
-
-| column | meaning |
-|---|---|
-| ttfs p50 / p90 | time from `response_required` to the first chunk that completes a sentence, pooled across runs |
-| complete | live `response_id`s that received `content_complete: true` / requested |
-| missing | expected tool calls (name + argument subset) never invoked |
-| unnecessary | tool calls that were forbidden by the scenario or not expected at all |
-| duplicate | same tool + same arguments (`message` excluded) more than once for one caller request across a supersede |
-| violations | protocol violations: wrong types, missing `response_type`, wrong `response_id`, mutually exclusive actions, config not first (a missed keepalive echo is a separate finding) |
-| text miss | expected phrases the agent never said (optional per scenario) |
-| must complete | begin message received and every live turn completed |
-
-Findings that are listed under the table rather than counted in a column: `silent_tool_turn` (a turn ran a tool but sent no spoken text before `content_complete`, the trap Retell's guide describes for tools without a `message` parameter), `tool_args_mismatch` (the expected tool was called with arguments that match no expected entry, for example the pre-interrupt slot was booked before the caller changed it; informational, it does not fail the scenario), `stale_chunks` (content for a superseded `response_id` after the newer request), `keepalive_missed`, `voice_markdown`, `agent_text_missing`.
-
-## Results (Claude reference server, 3 runs per scenario)
-
-Generated by `npm run results`, which starts the reference server in-process and writes `docs/results.md` from the bench's JSON output; the full file with every finding and transcript diff is `docs/results.md`.
+Bundled Claude reference server (`claude-sonnet-5`), 3 runs per scenario. Full output with every finding and a transcript diff per run: `docs/results.md`.
 
 | scenario | runs | ttfs p50 | ttfs p90 | complete | missing | unnecessary | duplicate | violations | text miss | must complete |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -51,16 +30,6 @@ Generated by `npm run results`, which starts the reference server in-process and
 | reschedule-appointment | 3 | 1302 ms | 1577 ms | 6/6 | 2 | 0 | 0 | 0 | 0 | ok |
 | unintelligible-audio | 3 | 1732 ms | 2643 ms | 3/3 | 0 | 0 | 0 | 0 | 0 | ok |
 
-Findings that are expected: `change-mind-before-booking` is the trap Retell's best-practice page describes (a fast tool commits before the supersede arrives). In this run the 200 ms interrupt arrived before the model reached the tool, so nothing was booked; a faster tool or a slower interrupt would show the trap. `interrupt-mid-sentence` interrupts 300 ms after the agent starts speaking (`after_first_chunk_ms`), and in all three runs the server had already booked the 2pm slot under the superseded `response_id` before the caller's correction arrived; the bench lists those as informational `tool_args_mismatch` lines (the 3pm booking that followed matches the expectation, so nothing is missing or duplicated), and the transcript diff shows the interrupted sentence as its own `+` line. Numbers vary between runs, so nothing asserts on them; the table reports what happened. In this run `reschedule-appointment` missed its booking in two of three runs: the model asked the caller to confirm the new slot and never called `book_appointment`, which the bench reports as `tool_missing` and the transcript diff shows word for word.
+Columns: `ttfs` is the time from `response_required` to the first complete sentence; `complete` counts turns that received `content_complete: true`; `missing`, `unnecessary`, and `duplicate` are tool calls; `violations` are protocol violations; `text miss` counts expected phrases the agent never said.
 
-## The reference server
-
-`npm run server` starts a small custom-LLM server that follows Retell's best-practice page: it streams Claude's text straight into `response` chunks, sends `content_complete: true` in a `finally` block, aborts generation once a newer `response_id` arrives, emits `tool_call_invocation` / `tool_call_result`, echoes `ping_pong`, and exposes two tools that each carry a `message` parameter (`book_appointment`, `end_call`). Bookings are idempotent, keyed on call id + arguments. The protocol logic lives in `src/server/session.ts` behind an `LlmClient` interface, so it is fully tested with a fake LLM and no key. It sends no sampling parameters: Retell's guide recommends temperature 0 with tools for OpenAI models, but Claude Sonnet 5 rejects non-default sampling parameters, so the request carries only `max_tokens: 300` and `thinking: { type: 'disabled' }` (thinking off so hidden reasoning does not count toward time to first sentence).
-
-## Scenarios
-
-Nine YAML files in `scenarios/`: book, reschedule, interrupt mid-sentence, caller goes quiet (reminder), fee not in the knowledge base, clinical question, goodbye (`end_call`), unintelligible audio, and change of mind before booking. A scenario is a list of turns plus expectations (`tool_calls`, `forbidden_tools`, `must_complete`, `agent_text_contains`) and an `agent_transcript` of reference wording that the report diffs against the actual transcript; add your own by dropping a file in the folder.
-
-## Tests
-
-`npm test` runs the vitest suite: protocol schemas, the fake server, the bench client, scenarios, metrics, scoring, the transcript diff, the runner, the CLI, the booking store, and the reference session (with a fake LLM). Nothing in the tests needs a key or a network.
+Two findings worth reading: `reschedule-appointment` missed its booking in two of three runs because the model asked the caller to confirm the new slot and never called `book_appointment`. In `interrupt-mid-sentence`, the caller corrects 2pm to 3pm 300 ms after the agent starts speaking, and in all three runs the server had already booked 2pm under the superseded `response_id` before booking 3pm; the bench lists the 2pm call as informational (`tool_args_mismatch`) and the transcript diff shows the interrupted sentence.
